@@ -1,23 +1,23 @@
 package mozago.model;
 
 public class Despesa {
-private String ID, tipo, descricao;
+private String iD, tipo, descricao;
 
 
 public Despesa(String iD, String tipo, String descricao, double valor,
 		double quantidade) {
 	super();
-	ID = iD;
+	iD = iD;
 	this.tipo = tipo;
 	this.descricao = descricao;
 	this.valor = valor;
 	this.quantidade = quantidade;
 }
 public String getID() {
-	return ID;
+	return iD;
 }
 public void setID(String iD) {
-	ID = iD;
+	iD = iD;
 }
 public String getTipo() {
 	return tipo;

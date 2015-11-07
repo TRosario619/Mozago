@@ -5,10 +5,10 @@ import java.util.Date;
 public class Obra {
 	private String dono, tipo, numero;
 	private Date dataInicio, dataFim, dataPrazo;
-	private double valorProjectado;
+	private double valorProjectado, valorInicial;
 
 public Obra(String dono, String tipo, String numero, Date dataInicio,
-		Date dataFim, Date dataPrazo, double valorProjectado) {
+		Date dataFim, Date dataPrazo, double valorProjectado, double valorInicial) {
 	super();
 	this.dono = dono;
 	this.tipo = tipo;
@@ -17,6 +17,13 @@ public Obra(String dono, String tipo, String numero, Date dataInicio,
 	this.dataFim = dataFim;
 	this.dataPrazo = dataPrazo;
 	this.valorProjectado = valorProjectado;
+	this.valorInicial = valorInicial;
+}
+public double getValorInicial() {
+	return valorInicial;
+}
+public void setValorInicial(double valorInicial) {
+	this.valorInicial = valorInicial;
 }
 public String getDono() {
 	return dono;
