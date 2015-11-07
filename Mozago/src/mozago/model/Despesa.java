@@ -1,7 +1,18 @@
 package mozago.model;
 
 public class Despesa {
-String ID, tipo, descricao;
+private String ID, tipo, descricao;
+
+
+public Despesa(String iD, String tipo, String descricao, double valor,
+		double quantidade) {
+	super();
+	ID = iD;
+	this.tipo = tipo;
+	this.descricao = descricao;
+	this.valor = valor;
+	this.quantidade = quantidade;
+}
 public String getID() {
 	return ID;
 }

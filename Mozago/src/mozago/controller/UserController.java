@@ -11,7 +11,18 @@ public class UserController {
 				tipo.isEmpty() || telefone == 0)
 			return false;
 		else 
-			
+			if (username.length()<7 || password.length()<7)
+				return false;
+			else {	
+		User user;
+		user = new User(nome, apelido, email, password,
+				username, tipo,telefone);
+		gravar(user);
 		return true;
+			}
+	}
+	
+	public static void gravar(User user){
+
 	}
 }
