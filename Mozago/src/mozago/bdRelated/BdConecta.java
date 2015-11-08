@@ -1,4 +1,4 @@
-package bdRelated;
+package mozago.bdRelated;
 
 
 import java.sql.Connection;

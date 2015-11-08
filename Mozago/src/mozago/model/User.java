@@ -2,12 +2,13 @@ package mozago.model;
 
 public class User {
 	
-	private String nome, apelido, email, password, username, categoria;
+	private String nome, apelido, email, password, username, categoria, idUser;
 	private long telefone;
 	
-	public User(String nome, String apelido, String email, String password,
+	public User(String idUser, String nome, String apelido, String email, String password,
 			String username, String categoria, long telefone) {
 		super();
+		this.idUser=idUser;
 		this.nome = nome;
 		this.apelido = apelido;
 		this.email = email;
@@ -18,6 +19,18 @@ public class User {
 	}
 
 	
+
+	public String getIdUser() {
+		return idUser;
+	}
+
+
+
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
+	}
+
+
 
 	public String getNome() {
 		return nome;
