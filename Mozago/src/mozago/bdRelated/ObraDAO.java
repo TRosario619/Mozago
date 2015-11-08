@@ -18,9 +18,9 @@ public class ObraDAO {
 		
 	}
 	
-	public void inserir(Obra obra) throws SQLException{
+	public static void inserir(Obra obra) throws SQLException{
 		
-		java.sql.PreparedStatement stmt=this.con.prepareStatement("insert into obra (idObra, descricao_obra,"
+		java.sql.PreparedStatement stmt=con.prepareStatement("insert into obra (idObra, descricao_obra,"
 				+ "dono_obra, contacto_dono_obra, tipo_obra, data_inicio, data_fim, data_prazo, Valor_projectado)"
 				+ " values(?,?,?,?,?,?,?,?,?,?,?)");
 		
@@ -43,6 +43,11 @@ public class ObraDAO {
 		}
 		
 		
+	}
+
+	public static String generateId() {
+		// TODO Auto-generated method stub
+		return " ";
 	}
 	
 	/*

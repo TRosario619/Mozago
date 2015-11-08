@@ -22,10 +22,13 @@ import javax.swing.JFormattedTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 import javax.swing.JComboBox;
 
+import mozago.bdRelated.ObraDAO;
 import mozago.controller.point;
+import mozago.model.Obra;
 
 import javax.swing.JButton;
 
@@ -34,7 +37,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JTextField txtDataInicio;
 	private JTextField txtDataFim;
-	private JTextField txtDescricaoDoDono;
+	private JTextField txtDescricao;
 	private JTextField txtDonoDaObra;
 	private JTextField txtValorProjecto;
 	private JTextField txtContacto;
@@ -117,13 +120,13 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		txtDataFim.setBounds(451, 256, 230, 43);
 		panelCriarObra.add(txtDataFim);
 		
-		txtDescricaoDoDono = new JTextField();
-		txtDescricaoDoDono.setText("Descricao do dono");
-		txtDescricaoDoDono.setForeground(Color.GRAY);
-		txtDescricaoDoDono.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
-		txtDescricaoDoDono.setColumns(10);
-		txtDescricaoDoDono.setBounds(55, 256, 301, 43);
-		panelCriarObra.add(txtDescricaoDoDono);
+		txtDescricao = new JTextField();
+		txtDescricao.setText("Descricao");
+		txtDescricao.setForeground(Color.GRAY);
+		txtDescricao.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
+		txtDescricao.setColumns(10);
+		txtDescricao.setBounds(55, 256, 301, 43);
+		panelCriarObra.add(txtDescricao);
 		
 		txtDonoDaObra = new JTextField();
 		txtDonoDaObra.setText("Dono da Obra");
@@ -193,7 +196,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 	private boolean verificarVazios(){
 		if ( txtContacto.getText().isEmpty() || txtDataFim.getText().isEmpty() || 
 				txtDataInicio.getText().isEmpty() || txtDataFim.getText().isEmpty() ||
-				txtDescricaoDoDono.getText().isEmpty() || txtDonoDaObra.getText().isEmpty() ||
+				txtDescricao.getText().isEmpty() || txtDonoDaObra.getText().isEmpty() ||
 				txtValor.getText().isEmpty() || txtValorProjecto.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "preencha todos os campos");
 			return false;}
@@ -208,6 +211,24 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnGuardar){
 			if(verificarVazios()){
+				//falta tipo de obra - HN
+				Obra obra=new Obra(ObraDAO.generateId(), //id_obra
+						txtDescricao.getText(),			//decricao
+						txtDonoDaObra.getText(),//dono_obra
+						txtContacto.getText(), //contacto_dono_obra
+						"tipo de obra",//tipo_obra
+						txtDataInicio.getText(),//data_inicio
+						" ",	//data_fim_no momento de criacao esta data é nula - HN
+						txtDataFim.getText(), //data_prazo
+						Double.parseDouble(txtValorProjecto.getText())); //valorProjectado
+				
+				try {
+					ObraDAO.inserir(obra);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				
 			}
 			
@@ -218,7 +239,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 			txtDataFim.setText("");
 			txtDataInicio.setText("");
 			txtDataFim.setText("");
-			txtDescricaoDoDono.setText("");
+			txtDescricao.setText("");
 			txtDonoDaObra.setText("");
 			txtValor.setText(""); 
 			txtValorProjecto.setText("");

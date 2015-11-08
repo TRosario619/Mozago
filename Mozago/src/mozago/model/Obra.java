@@ -8,7 +8,7 @@ public class Obra {
 	
 	public Obra(String id_obra, String decricao, String dono_obra,
 			String contacto_dono_obra, String tipo_obra, String data_inicio,
-			String data_fim, String duracao, String data_prazo, Double valorProjectado) {
+			String data_fim, String data_prazo, Double valorProjectado) {
 		super();
 		this.id_obra = id_obra;
 		this.decricao = decricao;
@@ -17,7 +17,6 @@ public class Obra {
 		this.tipo_obra = tipo_obra;
 		this.data_inicio = data_inicio;
 		this.data_fim = data_fim;
-		this.duracao = duracao;
 		this.valorProjectado = valorProjectado;
 		this.data_prazo= data_prazo;
 	}
