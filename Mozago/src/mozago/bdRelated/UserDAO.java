@@ -11,14 +11,14 @@ import mozago.model.User;
 import com.mysql.jdbc.*;
 
 public class UserDAO {
-private Connection con;
+private static Connection con;
 	
 	public UserDAO() throws SQLException{
 		this.con=(Connection) BdConecta.getConnection();
 	}
 	
-	public void adicionarUser(User user) throws SQLException{
-		java.sql.PreparedStatement stmt=this.con.prepareStatement("insert into usuario (idusuario,nome,apelido,userrname"
+	public static void adicionarUser(User user) throws SQLException{
+		java.sql.PreparedStatement stmt=con.prepareStatement("insert into usuario (idusuario,nome,apelido,userrname"
 				+ ",password,email,telefone,categoria) values(?,?,?,?,?,?,?,?)");
 		
 		
@@ -75,6 +75,31 @@ private Connection con;
 		}
 		
 	
+	}
+	
+public static String generateId(){
+		
+		//Calcula proximo IdObra
+				String last_id_user;
+				java.sql.PreparedStatement stmt1 = null;
+				try {
+					stmt1 = UserDAO.con.prepareStatement("select max(idusuario from usuario;");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				ResultSet rs = null;
+				try {
+					rs = stmt1.executeQuery();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				last_id_user=rs.toString();
+				
+		
+		return (""+Integer.parseInt(last_id_user)+1);
+		
 	}
 	
 	

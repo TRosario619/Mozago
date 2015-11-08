@@ -17,8 +17,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.Locale;
 
 import javax.swing.GroupLayout;
@@ -26,9 +29,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 
+import mozago.bdRelated.UserDAO;
 import mozago.controller.point;
+import mozago.model.User;
 
-public class Janela_users extends JFrame {
+public class Janela_users extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -192,7 +197,9 @@ public class Janela_users extends JFrame {
 		lblBg.setBounds(0, 0, 798, 663);
 		contentPane.add(lblBg);
 		
-		
+		btnApagar.addActionListener(this);
+		btnCriar.addActionListener(this);
+		btnEditar.addActionListener(this);
 	}
 private void inicializarTabela(){
 		
@@ -234,4 +241,38 @@ private void inicializarTabela(){
 		this.setVisible(true);
 		setLocation(point.findScreenCenter(this));
 	}
+
+private boolean verificarVazios(){
+	if(txtApelido.getText().isEmpty() || txtCategoria.getText().isEmpty() ||
+			txtEmail.getText().isEmpty() || txtNome.getText().isEmpty() ||
+			txtPassword.getText().isEmpty() || txtTelefone.getText().isEmpty() ||
+			txtUsername.getText().isEmpty()){
+		JOptionPane.showMessageDialog(null, "por favor preencha todos os campos");
+		return false;
+		
+	}
+	
+	else {
+		return true;
+	}
+}
+@Override
+public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+	if(e.getSource()==btnCriar){
+		if(verificarVazios()){
+			User user=new User(UserDAO.generateId(),txtNome.getText(),txtApelido.getText(),
+					txtEmail.getText(),txtPassword.getText(),txtUsername.getText(),
+					txtCategoria.getText(),Long.parseLong(txtTelefone.getText()));
+			try {
+				UserDAO.adicionarUser(user);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			}
+		
+	}
+}
 }
