@@ -2,6 +2,8 @@ package mozago.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DateFormat;
@@ -23,16 +25,22 @@ import mozago.controller.point;
 
 
 
+
+
 import java.awt.Font;
 import java.awt.Color;
 
 
 
-public class Janela_principal extends JFrame {
+public class Janela_principal extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private String data,horas,user;
 	private Date dataSistema =new Date();
+	private JButton btnCriarObra = new JButton("Criar Obra");
+	private JButton btnVisualizar = new JButton("Visualizar");
+	private JButton btnUsuarios = new JButton("Usuarios");
+	
 
 	/**
 	 * Launch the application.
@@ -132,20 +140,20 @@ public class Janela_principal extends JFrame {
 		panelPrincipal.add(label_7);
 		
 		
-		JButton btnCriarObra = new JButton("Criar Obra");
+		
 		btnCriarObra.setBackground(Color.WHITE);
 		btnCriarObra.setFont(new Font("Consolas", Font.PLAIN, 25));
 		btnCriarObra.setBounds(61, 427, 176, 73);
 		panelPrincipal.add(btnCriarObra);
 		
-		JButton btnNewButton = new JButton("Visualizar");
-		btnNewButton.setBackground(new Color(0, 0, 0));
-		btnNewButton.setForeground(new Color(255, 140, 0));
-		btnNewButton.setFont(new Font("Consolas", Font.PLAIN, 25));
-		btnNewButton.setBounds(263, 430, 214, 70);
-		panelPrincipal.add(btnNewButton);
 		
-		JButton btnUsuarios = new JButton("Usuarios");
+		btnVisualizar.setBackground(new Color(0, 0, 0));
+		btnVisualizar.setForeground(new Color(255, 140, 0));
+		btnVisualizar.setFont(new Font("Consolas", Font.PLAIN, 25));
+		btnVisualizar.setBounds(263, 430, 214, 70);
+		panelPrincipal.add(btnVisualizar);
+		
+		
 		btnUsuarios.setFont(new Font("Consolas", Font.PLAIN, 23));
 		btnUsuarios.setBackground(new Color(255, 140, 0));
 		btnUsuarios.setForeground(new Color(0, 0, 0));
@@ -171,6 +179,27 @@ public class Janela_principal extends JFrame {
 		     //lblUser.setText(point.users.get(0));
 		
 		setLocation(point.findScreenCenter(this));
+		
+		btnCriarObra.addActionListener(this);
+		btnUsuarios.addActionListener(this);
+		btnVisualizar.addActionListener(this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==btnCriarObra){
+			Janela_CriarObra janela = new Janela_CriarObra();
+			janela.setVisible(true);
+		}
+		
+		if(e.getSource()==btnUsuarios){
+			//janela usuarios ainda nao foi criada - HN
+		}
+		
+		if(e.getSource()==btnVisualizar){
+			//janela nao criada - HN
+		}
 	}
 
 }
