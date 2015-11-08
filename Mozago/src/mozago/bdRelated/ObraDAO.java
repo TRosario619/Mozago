@@ -21,7 +21,11 @@ public class ObraDAO {
 	
 	public static void inserir(Obra obra) throws SQLException{
 		
-		java.sql.PreparedStatement stmt=con.prepareStatement("insert into obra (idObra, descricao_obra,"
+		
+		
+		
+		//Criar Obra
+		java.sql.PreparedStatement stmt=ObraDAO.con.prepareStatement("insert into obra (idObra, descricao_obra,"
 				+ "dono_obra, contacto_dono_obra, tipo_obra, data_inicio, data_fim, data_prazo, Valor_projectado)"
 				+ " values(?,?,?,?,?,?,?,?,?,?,?)");
 		
@@ -44,11 +48,6 @@ public class ObraDAO {
 		}
 		
 		
-	}
-
-	public static String generateId() {
-		// TODO Auto-generated method stub
-		return " ";
 	}
 	
 	/*
@@ -89,7 +88,30 @@ ResultSet rs=stmt.executeQuery();
 	*/
 	
 	
-	
+	public static String generateId(){
+		
+		//Calcula proximo IdObra
+				String last_id_obra;
+				java.sql.PreparedStatement stmt1 = null;
+				try {
+					stmt1 = ObraDAO.con.prepareStatement("select max(idObra from obra;");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				ResultSet rs = null;
+				try {
+					rs = stmt1.executeQuery();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				last_id_obra=rs.toString();
+				
+		
+		return (""+Integer.parseInt(last_id_obra)+1);
+		
+	}
 	
 
 }

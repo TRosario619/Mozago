@@ -1,48 +1,47 @@
 package mozago.model;
 
 public class Despesa {
-private String iD, tipo, descricao;
+private String id, quantia, preco_total,data;
 
 
-public Despesa(String iD, String tipo, String descricao, double valor,
-		double quantidade) {
+
+public Despesa(String id, String quantia, String preco_total, String data) {
 	super();
-	this.iD = iD;
-	this.tipo = tipo;
-	this.descricao = descricao;
-	this.valor = valor;
-	this.quantidade = quantidade;
+	this.id = id;
+	this.quantia = quantia;
+	this.preco_total = preco_total;
+	this.data = data;
 }
-public String getID() {
-	return iD;
+
+
+public String getId() {
+	return id;
 }
-public void setID(String iD) {
-	iD = iD;
+public void setid(String id) {
+	this.id = id;
 }
-public String getTipo() {
-	return tipo;
+public String getQuantia() {
+	return quantia;
 }
-public void setTipo(String tipo) {
-	this.tipo = tipo;
+public void setQuantia(String quantia) {
+	this.quantia = quantia;
 }
-public String getDescricao() {
-	return descricao;
+public String getPreco_total() {
+	return preco_total;
 }
-public void setDescricao(String descricao) {
-	this.descricao = descricao;
+public void setPreco_total(String preco_total) {
+	this.preco_total = preco_total;
 }
-public double getValor() {
-	return valor;
+public String getData() {
+	return data;
 }
-public void setValor(double valor) {
-	this.valor = valor;
+public void setData(String data) {
+	this.data = data;
 }
-public double getQuantidade() {
-	return quantidade;
-}
-public void setQuantidade(double quantidade) {
-	this.quantidade = quantidade;
-}
-double valor, quantidade;
+
+
+
+
+
 
 }
