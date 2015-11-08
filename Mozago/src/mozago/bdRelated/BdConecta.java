@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 public class BdConecta 
 {
+	private static Connection con;
 	public static Connection getConnection() throws SQLException{
 		try {
 			 Class.forName("com.mysql.jdbc.Driver");
@@ -17,5 +18,9 @@ public class BdConecta
 			throw new SQLException(e.getMessage());
 		}
 		
+	}
+	
+	public static void main(String[] arg) throws SQLException{
+		con=(Connection) BdConecta.getConnection();
 	}
 }

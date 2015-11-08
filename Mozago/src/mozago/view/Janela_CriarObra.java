@@ -1,9 +1,11 @@
 package mozago.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -17,15 +19,17 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JComboBox;
 
 import mozago.controller.point;
+
 import javax.swing.JButton;
 
-public class Janela_CriarObra extends JFrame {
+public class Janela_CriarObra extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtDataInicio;
@@ -176,10 +180,49 @@ public class Janela_CriarObra extends JFrame {
 		labelBG.setBounds(-11, -11, 819, 674);
 		panelCriarObra.add(labelBG);
 		setLocation(point.findScreenCenter(this));
+		
+		btnGuardar.addActionListener(this);
+		btnLimpar.addActionListener(this);
 	}
 	private static class __Tmp {
 		private static void __tmp() {
 			  javax.swing.JPanel __wbp_panel = new javax.swing.JPanel();
 		}
+	}
+	
+	private boolean verificarVazios(){
+		if ( txtContacto.getText().isEmpty() || txtDataFim.getText().isEmpty() || 
+				txtDataInicio.getText().isEmpty() || txtDataFim.getText().isEmpty() ||
+				txtDescricaoDoDono.getText().isEmpty() || txtDonoDaObra.getText().isEmpty() ||
+				txtValor.getText().isEmpty() || txtValorProjecto.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "preencha todos os campos");
+			return false;}
+			else
+				return true;
+		}
+		
+	
+		
+@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == btnGuardar){
+			if(verificarVazios()){
+				
+			}
+			
+		}
+		
+		if(e.getSource() == btnLimpar){
+			txtContacto.setText("");
+			txtDataFim.setText("");
+			txtDataInicio.setText("");
+			txtDataFim.setText("");
+			txtDescricaoDoDono.setText("");
+			txtDonoDaObra.setText("");
+			txtValor.setText(""); 
+			txtValorProjecto.setText("");
+		}
+		
 	}
 }

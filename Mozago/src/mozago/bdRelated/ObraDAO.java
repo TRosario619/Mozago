@@ -10,7 +10,7 @@ import com.mysql.jdbc.Connection;
 
 public class ObraDAO {
 
-	private Connection con;
+	private static Connection con;
 		
 	public ObraDAO() throws SQLException{
 		
