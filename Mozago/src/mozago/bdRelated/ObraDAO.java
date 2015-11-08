@@ -8,7 +8,6 @@ import java.util.Vector;
 import mozago.model.*;
 import com.mysql.jdbc.Connection;
 
-
 public class ObraDAO {
 
 	private Connection con;

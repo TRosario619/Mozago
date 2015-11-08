@@ -11,7 +11,7 @@ public class BdConecta
 		try {
 			 Class.forName("com.mysql.jdbc.Driver");
 			 System.out.println("Conectado");
-			 return DriverManager.getConnection("jdbc:mysql://localhost/ mozago_db"+ ""
+			 return DriverManager.getConnection("jdbc:mysql://localhost/mozago_db"+ "3306"
 			 		+ "user=root&password=root");
 		} catch (Exception e) {
 			throw new SQLException(e.getMessage());

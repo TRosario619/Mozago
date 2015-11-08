@@ -8,8 +8,7 @@ import mozago.bdRelated.BdConecta;
 
 import mozago.model.User;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
+import com.mysql.jdbc.*;
 
 public class UserDAO {
 private Connection con;
