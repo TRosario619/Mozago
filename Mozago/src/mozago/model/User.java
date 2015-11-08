@@ -3,7 +3,8 @@ package mozago.model;
 public class User {
 	
 	private String nome, apelido, email, password, username, categoria;
-	long telefone;
+	private long telefone;
+	
 	public User(String nome, String apelido, String email, String password,
 			String username, String categoria, long telefone) {
 		super();

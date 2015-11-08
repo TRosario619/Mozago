@@ -3,12 +3,12 @@ package mozago.model;
 public class Obra {
 	
 	
-	String id_obra,decricao,dono_obra, contacto_dono_obra,tipo_obra, data_inicio, data_fim,duracao;
-	Double valorProjectado;
+	private String id_obra,decricao,dono_obra, contacto_dono_obra,tipo_obra, data_inicio, data_fim,duracao, data_prazo;
+	private Double valorProjectado;
 	
 	public Obra(String id_obra, String decricao, String dono_obra,
 			String contacto_dono_obra, String tipo_obra, String data_inicio,
-			String data_fim, String duracao, Double valorProjectado) {
+			String data_fim, String duracao, String data_prazo, Double valorProjectado) {
 		super();
 		this.id_obra = id_obra;
 		this.decricao = decricao;
@@ -19,10 +19,23 @@ public class Obra {
 		this.data_fim = data_fim;
 		this.duracao = duracao;
 		this.valorProjectado = valorProjectado;
+		this.data_prazo= data_prazo;
 	}
 	
 
 	
+	public String getData_prazo() {
+		return data_prazo;
+	}
+
+
+
+	public void setData_prazo(String data_prazo) {
+		this.data_prazo = data_prazo;
+	}
+
+
+
 	public String getId_obra() {
 		return id_obra;
 	}
