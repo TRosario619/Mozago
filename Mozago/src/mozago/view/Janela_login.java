@@ -2,6 +2,8 @@ package mozago.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
@@ -14,17 +16,22 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+
 import java.awt.Color;
 
-public class Janela_login extends JFrame {
+public class Janela_login extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField textField_username;
 	private JPasswordField passwordField;
+	private JButton btn_limpar = new JButton("Limpar");
+	private JButton btn_login = new JButton("Login");
 
 	/**
 	 * Launch the application.
@@ -99,14 +106,13 @@ public class Janela_login extends JFrame {
 		passwordField.setBounds(151, 211, 242, 29);
 		contentPane.add(passwordField);
 		
-		JButton btn_login = new JButton("Login");
 		btn_login.setForeground(new Color(255, 153, 0));
 		btn_login.setBackground(new Color(0, 0, 0));
 		btn_login.setFont(new Font("Consolas", Font.BOLD, 20));
 		btn_login.setBounds(151, 268, 126, 30);
 		contentPane.add(btn_login);
 		
-		JButton btn_limpar = new JButton("Limpar");
+		
 		btn_limpar.setBackground(Color.WHITE);
 		btn_limpar.setFont(new Font("Consolas", Font.BOLD, 20));
 		btn_limpar.setBounds(302, 268, 126, 30);
@@ -132,5 +138,32 @@ public class Janela_login extends JFrame {
 			// If Nimbus is not available, you can set the GUI to another look
 			// and feel.
 		}
+	}
+
+	private boolean verificarVazios(){
+		if(textField_username.getText().isEmpty() || passwordField.getText().isEmpty()){
+			JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos");
+			return false;
+			}
+		else{
+				return true;
+			}
+		}
+	
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+		if(e.getSource()==btn_limpar){
+			textField_username.setText("");
+			passwordField.setText("");
+			
+		if(e.getSource()==btn_login){
+			if(verificarVazios()){
+				//log in
+			}
+		}
+			
+		}
+		
 	}
 }
