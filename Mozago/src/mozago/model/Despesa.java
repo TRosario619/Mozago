@@ -7,7 +7,7 @@ private String iD, tipo, descricao;
 public Despesa(String iD, String tipo, String descricao, double valor,
 		double quantidade) {
 	super();
-	iD = iD;
+	this.iD = iD;
 	this.tipo = tipo;
 	this.descricao = descricao;
 	this.valor = valor;
