@@ -1,17 +1,18 @@
 package mozago.bdRelated;
-import java.sql.Date;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Vector;
+
+
 
 import mozago.model.*;
+
 import com.mysql.jdbc.Connection;
 
 public class ObraDAO {
 
 	private static Connection con;
 		
+	@SuppressWarnings("static-access")
 	public ObraDAO() throws SQLException{
 		
 	this.con=(Connection) BdConecta.getConnection();
