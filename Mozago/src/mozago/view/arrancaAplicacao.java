@@ -135,7 +135,7 @@ public class arrancaAplicacao extends JFrame implements Runnable {
 				{
 					lblDinamico.setText("62%");
 				}
-				if (i == 88)
+				if (i == 78)
 				{
 					lblDinamico.setText("88%");
 				}

@@ -126,7 +126,8 @@ public class Janela_login extends JFrame implements ActionListener{
 				lblLogologin.setForeground(Color.WHITE);
 				lblLogologin.setIcon(new ImageIcon(Janela_login.class.getResource("/img/logo_mozago - Copy - Copy (Custom)4.png")));
 		
-		
+		btn_limpar.addActionListener(this);
+		btn_login.addActionListener(this);
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
