@@ -102,7 +102,7 @@ public class Janela_principal extends JFrame implements ActionListener{
 		}
 		 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 732, 608);
+		setBounds(100, 100, 706, 608);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -142,19 +142,19 @@ public class Janela_principal extends JFrame implements ActionListener{
 		
 		
 		btnCriarObra.setBackground(Color.WHITE);
-		btnCriarObra.setFont(new Font("Consolas", Font.PLAIN, 25));
+		btnCriarObra.setFont(new Font("Futura Lt BT", Font.BOLD, 27));
 		btnCriarObra.setBounds(61, 427, 176, 73);
 		panelPrincipal.add(btnCriarObra);
 		
 		
 		btnVisualizar.setBackground(new Color(0, 0, 0));
 		btnVisualizar.setForeground(new Color(255, 140, 0));
-		btnVisualizar.setFont(new Font("Consolas", Font.PLAIN, 25));
+		btnVisualizar.setFont(new Font("Futura Lt BT", Font.BOLD, 27));
 		btnVisualizar.setBounds(263, 430, 214, 70);
 		panelPrincipal.add(btnVisualizar);
 		
 		
-		btnUsuarios.setFont(new Font("Consolas", Font.PLAIN, 23));
+		btnUsuarios.setFont(new Font("Futura Lt BT", Font.BOLD, 27));
 		btnUsuarios.setBackground(new Color(255, 140, 0));
 		btnUsuarios.setForeground(new Color(0, 0, 0));
 		btnUsuarios.setBounds(504, 431, 163, 69);
@@ -163,8 +163,8 @@ public class Janela_principal extends JFrame implements ActionListener{
 		JLabel labelBackground = new JLabel("");
 		labelBackground.setForeground(new Color(255, 140, 0));
 		labelBackground.setBackground(Color.BLACK);
-		labelBackground.setIcon(new ImageIcon(Janela_principal.class.getResource("/img/logo_mozago background2.png")));
-		labelBackground.setBounds(-16, 0, 762, 594);
+		labelBackground.setIcon(new ImageIcon(Janela_principal.class.getResource("/img/Janela_main/BG-_2_just_in_case.png")));
+		labelBackground.setBounds(-16, 0, 734, 594);
 		panelPrincipal.add(labelBackground);
 		
 		DateFormat dfmt = new SimpleDateFormat("d 'de' MMMM 'de' yyyy",new Locale("pt", "PT"));  

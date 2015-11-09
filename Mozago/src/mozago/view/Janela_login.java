@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+import mozago.controller.point;
+
 import java.awt.Color;
 
 public class Janela_login extends JFrame implements ActionListener{
@@ -90,32 +92,36 @@ public class Janela_login extends JFrame implements ActionListener{
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setBounds(20, 160, 142, 30);
 		contentPane.add(lblUsername);
-		lblUsername.setFont(new Font("Consolas", Font.BOLD, 23));
+		lblUsername.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
 		
 		JLabel lbl_password = new JLabel("Password:");
-		lbl_password.setFont(new Font("Consolas", Font.BOLD, 23));
-		lbl_password.setBounds(20, 210, 126, 30);
+		lbl_password.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
+		lbl_password.setBounds(30, 211, 118, 30);
 		contentPane.add(lbl_password);
 		
 		textField_username = new JTextField();
+		textField_username.setForeground(Color.GRAY);
+		textField_username.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
 		textField_username.setBounds(151, 157, 242, 30);
 		contentPane.add(textField_username);
 		textField_username.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		passwordField.setForeground(Color.GRAY);
+		passwordField.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
 		passwordField.setBounds(151, 211, 242, 29);
 		contentPane.add(passwordField);
 		
 		btn_login.setForeground(new Color(255, 153, 0));
 		btn_login.setBackground(new Color(0, 0, 0));
-		btn_login.setFont(new Font("Consolas", Font.BOLD, 20));
-		btn_login.setBounds(151, 268, 126, 30);
+		btn_login.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
+		btn_login.setBounds(151, 268, 126, 41);
 		contentPane.add(btn_login);
 		
 		
 		btn_limpar.setBackground(Color.WHITE);
-		btn_limpar.setFont(new Font("Consolas", Font.BOLD, 20));
-		btn_limpar.setBounds(302, 268, 126, 30);
+		btn_limpar.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
+		btn_limpar.setBounds(302, 268, 126, 41);
 		contentPane.add(btn_limpar);
 		
 				
@@ -125,7 +131,9 @@ public class Janela_login extends JFrame implements ActionListener{
 				lblLogologin.setBackground(Color.WHITE);
 				lblLogologin.setForeground(Color.WHITE);
 				lblLogologin.setIcon(new ImageIcon(Janela_login.class.getResource("/img/logo_mozago - Copy - Copy (Custom)4.png")));
+				setLocation(point.findScreenCenter(this));
 		
+
 		btn_limpar.addActionListener(this);
 		btn_login.addActionListener(this);
 		try {
