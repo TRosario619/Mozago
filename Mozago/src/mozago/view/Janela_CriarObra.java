@@ -1,6 +1,7 @@
 package mozago.view;
 
 import java.awt.BorderLayout;
+import java.awt.color.CMMException;
 import java.awt.event.ActionListener;
 import java.awt.EventQueue;
 
@@ -23,14 +24,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.JComboBox;
 
+import mozago.bdRelated.BdConecta;
 import mozago.bdRelated.ObraDAO;
+import mozago.bdRelated.UserDAO;
 import mozago.controller.point;
 import mozago.model.Obra;
+import mozago.model.User;
 
 import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
 
 public class Janela_CriarObra extends JFrame implements ActionListener {
 
@@ -105,15 +111,15 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		panelCriarObra.add(lblIdObrar);
 		
 		txtDataInicio = new JTextField();
+		txtDataInicio.setToolTipText("Data de Inicio da Obra");
 		txtDataInicio.setForeground(Color.GRAY);
 		txtDataInicio.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
-		txtDataInicio.setText("Data Inicio");
 		txtDataInicio.setBounds(451, 173, 230, 43);
 		panelCriarObra.add(txtDataInicio);
 		txtDataInicio.setColumns(10);
 		
 		txtDataFim = new JTextField();
-		txtDataFim.setText("Data Fim");
+		txtDataFim.setToolTipText("Data do Fim da obra");
 		txtDataFim.setForeground(Color.GRAY);
 		txtDataFim.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
 		txtDataFim.setColumns(10);
@@ -121,7 +127,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		panelCriarObra.add(txtDataFim);
 		
 		txtDescricao = new JTextField();
-		txtDescricao.setText("Descricao");
+		txtDescricao.setToolTipText("Descricao da Obra");
 		txtDescricao.setForeground(Color.GRAY);
 		txtDescricao.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
 		txtDescricao.setColumns(10);
@@ -129,7 +135,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		panelCriarObra.add(txtDescricao);
 		
 		txtDonoDaObra = new JTextField();
-		txtDonoDaObra.setText("Dono da Obra");
+		txtDonoDaObra.setToolTipText("Insira o nome do Dono da Obra");
 		txtDonoDaObra.setForeground(Color.GRAY);
 		txtDonoDaObra.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
 		txtDonoDaObra.setColumns(10);
@@ -137,7 +143,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		panelCriarObra.add(txtDonoDaObra);
 		
 		txtContacto = new JTextField();
-		txtContacto.setText("Contacto");
+		txtContacto.setToolTipText("Contacto do dono da obra");
 		txtContacto.setForeground(Color.GRAY);
 		txtContacto.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
 		txtContacto.setColumns(10);
@@ -145,7 +151,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		panelCriarObra.add(txtContacto);
 		
 		txtValor = new JTextField();
-		txtValor.setText("123456789");
+		txtValor.setToolTipText("Valor do projecto em Meticais");
 		txtValor.setForeground(Color.GRAY);
 		txtValor.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
 		txtValor.setColumns(10);
@@ -184,6 +190,18 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		panelCriarObra.add(labelBG);
 		setLocation(point.findScreenCenter(this));
 		
+		//actualizar comboxes --AB
+		try {
+			actualizarComboBoxes();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//Generate Id da Obra --AB
+		lblIdObrar.setText(UserDAO.generateId()+"");
+		
+		
 		btnGuardar.addActionListener(this);
 		btnLimpar.addActionListener(this);
 	}
@@ -204,7 +222,32 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 				return true;
 		}
 		
-	
+	//actualizacao das comboboxes --AB
+	private void actualizarComboBoxes() throws SQLException{
+		
+		Vector<User> v=UserDAO.retornaUsuariosCatgoria(2);
+		Vector<User> v1=UserDAO.retornaUsuariosCatgoria(3);
+		comboBoxDirector.removeAllItems();
+		comboBoxGestor.removeAllItems();
+		
+		comboBoxDirector.addItem("--Escolha um Director--");
+		comboBoxGestor.addItem("--Escolha um Gestor--");
+		
+		for (int j = 0; j < v.size(); j++) {
+			
+			
+			comboBoxDirector.addItem(v.elementAt(j).getUsername());
+			comboBoxGestor.addItem(v1.elementAt(j).getUsername());
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+	}
 		
 @Override
 	public void actionPerformed(ActionEvent e) {
@@ -242,7 +285,9 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 			txtDescricao.setText("");
 			txtDonoDaObra.setText("");
 			txtValor.setText(""); 
-			txtValorProjecto.setText("");
+			//txtValorProjecto.setText(""); nao existe!!!! AB
+			comboBoxDirector.setSelectedIndex(0);
+			comboBoxGestor.setSelectedIndex(0);
 		}
 		
 	}
