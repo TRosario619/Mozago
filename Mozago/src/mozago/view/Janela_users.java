@@ -47,7 +47,8 @@ public class Janela_users extends JFrame implements ActionListener{
 	private JButton btnCriar;
 	private JButton btnEditar;
 	private JButton btnApagar;
-	private JComboBox comboBox_categoria = new JComboBox();
+	private String[] categorias = {"Selecione uma Categoria","Administrador","Director","Gestor"};
+	private JComboBox comboBox_categoria = new JComboBox(categorias);
 	
 	/**
 	 * Launch the application.
