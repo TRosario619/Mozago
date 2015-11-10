@@ -23,8 +23,11 @@ import javax.swing.JFormattedTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
+import java.util.Locale;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
@@ -86,8 +89,35 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 	public Janela_CriarObra(User user) throws SQLException {
 		
 		this.user=user;
+		
+		 UIManager.put("OptionPane.yesButtonText", "Sim");  
+         UIManager.put("OptionPane.cancelButtonText", "Cancelar");  
+         UIManager.put("OptionPane.noButtonText", "Não");  
+         UIManager.put("OptionPane.okButtonText", "OK");  
+	    Locale.setDefault(new Locale("pt","PT"));  
+	    
+		addWindowListener(new WindowAdapter() {
+			@Override
+			  public void windowClosing(WindowEvent e) {  
+
+			    BlockingGlassPane glass = new BlockingGlassPane();  
+			    setGlassPane(glass);  
+			    glass.setVisible(true);  
+                int i = JOptionPane.showConfirmDialog(Janela_CriarObra.this ,"Tem certeza que deseja cancelar a criacao da obra?", "Cancelar",JOptionPane.YES_NO_OPTION); 
+              
+                if (i == JOptionPane.YES_OPTION) {  
+                	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                	// new Janela_principal(user).setVisible(true); 
+                } else {  
+                	glass.setVisible(false); 
+                   setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                }     } 
+		}); 
+		
+		
 		setTitle("MOZAGO");
 		setResizable(false);
+		
 		
 		
 		
@@ -255,7 +285,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 				comboBoxFimMes.getSelectedIndex()==0||comboBoxFimDia.getSelectedIndex()==0||
 				comboBoxInicioAno.getSelectedIndex()==0||comboBoxInicioMes.getSelectedIndex()==0||
 				comboBoxInicioDia.getSelectedIndex()==0||txtDescricao.getText().isEmpty() || txtDonoDaObra.getText().isEmpty() ||
-				txtValor.getText().isEmpty() || txtValorProjecto.getText().isEmpty()) {
+				txtValor.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "preencha todos os campos");
 			return false;}
 			else
@@ -285,6 +315,22 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		
 		
 	}
+	
+public void criarAlocacao(Obra obra)
+{
+	try {	
+		User admin = new User();
+		admin= UserDAO.VerificarUser(user.getUsername());
+		User director = new User();
+		director= UserDAO.VerificarUser(comboBoxDirector.getSelectedItem().toString());
+		User gestor = new User();
+		gestor= UserDAO.VerificarUser(comboBoxGestor.getSelectedItem().toString());
+	AlocacaoDAO.inserir(obra, admin, gestor, director);
+	} catch (SQLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+}
 		
 @Override
 	public void actionPerformed(ActionEvent e) {
@@ -295,18 +341,18 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 				//falta tipo de obra - HN
 				//ja pus o tipo de obra!! - AB
 				
-				Date data_inicio=new Date(Integer.parseInt(comboBoxInicioAno.getSelectedItem().toString()),(comboBoxInicioMes.getSelectedIndex()-1),comboBoxInicioDia.getSelectedIndex());
-				Date data_fim=new Date(Integer.parseInt(comboBoxFimAno.getSelectedItem().toString()),(comboBoxFimMes.getSelectedIndex()-1),comboBoxFimDia.getSelectedIndex());
-						
+				//cases dos meses -AB e HN
+				int mesInicio=comboBoxFimMes.getSelectedIndex();
+				int mesFim=comboBoxInicioMes.getSelectedIndex();
+				
+				Date data_inicio=new Date(Integer.parseInt(comboBoxInicioAno.getSelectedItem().toString()),(mesInicio),comboBoxInicioDia.getSelectedIndex());
+				Date data_fim=new Date(Integer.parseInt(comboBoxFimAno.getSelectedItem().toString()),(mesFim),comboBoxFimDia.getSelectedIndex());
+				Date data_prazo=null;		
 				try {
-					obra=new Obra(ObraDAO.generateId(), //id_obra
-							txtDescricao.getText(),			//decricao
-							txtDonoDaObra.getText(),//dono_obra
-							txtContacto.getText(), //contacto_dono_obra
-							comboBoxTipoObra.getSelectedIndex(),//tipo_obra
-							data_inicio,data_fim,
-							null,	//data_fim_no momento de criacao esta data é nula - HN
-							Double.parseDouble(txtValorProjecto.getText()));
+					obra=new Obra(ObraDAO.generateId(), txtDescricao.getText(), txtDonoDaObra.getText(), txtContacto.getText(), comboBoxTipoObra.getSelectedIndex(), data_inicio, data_fim, data_prazo, Double.parseDouble(txtValor.getText()));
+					
+					ObraDAO.inserir(obra);
+				
 				} catch (NumberFormatException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -314,19 +360,9 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				} //valorProjectado
-				try {	
-						User admin = new User();
-						admin= UserDAO.VerificarUser(user.getUsername());
-						User director = new User();
-						director= UserDAO.VerificarUser(comboBoxDirector.getSelectedItem().toString());
-						User gestor = new User();
-						gestor= UserDAO.VerificarUser(user.getUsername());
-					AlocacaoDAO.inserir(obra, admin, gestor, director);
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
+		
+				criarAlocacao(obra);
+				
 				 new Janela_CriarObraInvs(obra, user).setVisible(true);
 							
 				

@@ -12,7 +12,7 @@ public class BdConecta
 		try {
 			 Class.forName("com.mysql.jdbc.Driver");
 			 System.out.println("Conectado");
-			 return DriverManager.getConnection("jdbc:mysql://localhost:3307/mozago_db","root","root");
+			 return DriverManager.getConnection("jdbc:mysql://localhost:3306/mozago_db","root","root");
 		} catch (Exception e) {
 			throw new SQLException(e.getMessage());
 		}

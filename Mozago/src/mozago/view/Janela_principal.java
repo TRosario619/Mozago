@@ -66,7 +66,7 @@ public class Janela_principal extends JFrame implements ActionListener{
 			    BlockingGlassPane glass = new BlockingGlassPane();  
 			    setGlassPane(glass);  
 			    glass.setVisible(true);  
-                int i = JOptionPane.showConfirmDialog(Janela_principal.this ,"Tem certeza que deseja sair?", "Saída",JOptionPane.YES_NO_OPTION); 
+                int i = JOptionPane.showConfirmDialog(Janela_principal.this ,"Tem certeza que deseja fazer Logout?", "Log Out",JOptionPane.YES_NO_OPTION); 
               
                 if (i == JOptionPane.YES_OPTION) {  
                 	setDefaultCloseOperation(DISPOSE_ON_CLOSE);

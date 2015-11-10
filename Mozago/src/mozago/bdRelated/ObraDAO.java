@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 
 
+
 import mozago.model.*;
 
 import com.mysql.jdbc.Connection;
@@ -26,13 +27,18 @@ public class ObraDAO {
 	
 	public static void inserir(Obra obra) throws SQLException{
 		
-		
+		try{
+			con = (Connection) BdConecta.getConnection();
+				}
+				catch (SQLException e){
+					System.out.println(e.getMessage());
+				}
 		
 		
 		//Criar Obra
 		java.sql.PreparedStatement stmt=ObraDAO.con.prepareStatement("insert into obra (idObra, descricao_obra,"
 				+ "dono_obra, contacto_dono_obra, tipo_obra, data_inicio, data_fim, data_prazo, Valor_projectado)"
-				+ " values(?,?,?,?,?,?,?,?,?,?,?)");
+				+ " values(?,?,?,?,?,?,?,?,?)");
 		
 		stmt.setInt(1, obra.getId_obra());
 		stmt.setString(2, obra.getDecricao());
@@ -45,6 +51,7 @@ public class ObraDAO {
 		stmt.setDouble(9, obra.getValorProjectado());
 		
 		stmt.execute();
+		System.out.println("obra adicionada");
 		try {
 			stmt.close();
 			con.close();

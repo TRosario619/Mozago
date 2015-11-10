@@ -2,8 +2,8 @@ package mozago.bdRelated;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-
+import java.sql.Date;
+import java.util.Calendar;
 import mozago.model.Obra;
 import mozago.model.User;
 
@@ -21,7 +21,12 @@ public class AlocacaoDAO {
 	
 	public static void inserir(Obra obra, User admin, User gestor, User director) throws SQLException{
 		
-		
+		try{
+			con = (Connection) BdConecta.getConnection();
+				}
+				catch (SQLException e){
+					System.out.println(e.getMessage());
+				}
 		
 		
 		//Criar Obra
@@ -35,11 +40,13 @@ public class AlocacaoDAO {
 		stmt.setInt(4, gestor.getIdUser());
 		stmt.setInt(5, obra.getId_obra());
 		
-		Date data = new Date();
-		String dataString;
-		dataString = data.getDate()+""+data.getMonth()+""+data.getYear();
-		long dataLong = Long.parseLong(dataString);
-		java.sql.Date date = new java.sql.Date(dataLong);
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		
+		
+		
+		
+		
+		
 		stmt.setDate(6, (java.sql.Date) date);
 		
 		
@@ -80,7 +87,11 @@ public static int generateId() throws SQLException{
 				
 				ResultSet rs = stmt121.executeQuery();
 					while(rs.next()){
-					last_id_obra=Integer.parseInt(rs.getString("max(idalocacao)"));
+						String string = rs.getString("max(idalocacao)");
+						if(string==null){
+							return 1;
+						}
+						last_id_obra=Integer.parseInt(rs.getString("max(idalocacao)"));
 					}
 				
 				

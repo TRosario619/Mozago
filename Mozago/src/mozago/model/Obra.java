@@ -1,15 +1,15 @@
 package mozago.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Obra {
 	
 	
 	private String decricao,dono_obra, contacto_dono_obra,duracao;
 	private int id_obra;
-	private Date data_inicio = new Date(); 
-	private Date data_fim = new Date(); 
-	private Date data_prazo = new Date(); 
+	private Date data_inicio;
+	private Date data_fim; 
+	private Date data_prazo; 
 	private int tipo_obra;
 	private Double valorProjectado;
 	
@@ -17,18 +17,18 @@ public class Obra {
 		
 	}
 	public Obra(int id_obra, String decricao, String dono_obra,
-			String contacto_dono_obra, int tipo_obra, Date data_inicio,
-			Date data_fim, Date data_prazo, Double valorProjectado) {
+			String contacto_dono_obra, int tipo_obra, java.sql.Date data_inicio2,
+			java.sql.Date data_fim2, java.sql.Date data_prazo2, Double valorProjectado) {
 		super();
 		this.id_obra = id_obra;
 		this.decricao = decricao;
 		this.dono_obra = dono_obra;
 		this.contacto_dono_obra = contacto_dono_obra;
 		this.tipo_obra = tipo_obra;
-		this.data_inicio = data_inicio;
-		this.data_fim = data_fim;
+		this.data_inicio = data_inicio2;
+		this.data_fim = data_fim2;
 		this.valorProjectado = valorProjectado;
-		this.data_prazo= data_prazo;
+		this.data_prazo= data_prazo2;
 	}
 	
 
