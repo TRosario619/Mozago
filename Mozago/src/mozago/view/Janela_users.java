@@ -47,26 +47,16 @@ public class Janela_users extends JFrame implements ActionListener{
 	private JButton btnCriar;
 	private JButton btnEditar;
 	private JButton btnApagar;
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Janela_users frame = new Janela_users();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public Janela_users() {
+	public Janela_users(User user) {
 		 UIManager.put("OptionPane.yesButtonText", "Sim");  
          UIManager.put("OptionPane.cancelButtonText", "Cancelar");  
          UIManager.put("OptionPane.noButtonText", "Não");  
@@ -84,7 +74,7 @@ public class Janela_users extends JFrame implements ActionListener{
               
                 if (i == JOptionPane.YES_OPTION) {  
                 	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                	  new Janela_principal().setVisible(true); 
+                	 // new Janela_principal(user).setVisible(true); 
                 } else {  
                 	glass.setVisible(false); 
                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -256,23 +246,28 @@ private boolean verificarVazios(){
 		return true;
 	}
 }
+//@Override
+//public void actionPerformed(ActionEvent e) {
+//	// TODO Auto-generated method stub
+//	if(e.getSource()==btnCriar){
+//		if(verificarVazios()){
+//			User user=new User(UserDAO.generateId(),txtNome.getText(),txtApelido.getText(),
+//					txtEmail.getText(),txtPassword.getText(),txtUsername.getText(),
+//					txtCategoria.getText(),Long.parseLong(txtTelefone.getText()));
+//			try {
+//				UserDAO.adicionarUser(user);
+//			} catch (SQLException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//			
+//			}
+//		
+//	}
+//}
 @Override
-public void actionPerformed(ActionEvent e) {
+public void actionPerformed(ActionEvent arg0) {
 	// TODO Auto-generated method stub
-	if(e.getSource()==btnCriar){
-		if(verificarVazios()){
-			User user=new User(UserDAO.generateId(),txtNome.getText(),txtApelido.getText(),
-					txtEmail.getText(),txtPassword.getText(),txtUsername.getText(),
-					txtCategoria.getText(),Long.parseLong(txtTelefone.getText()));
-			try {
-				UserDAO.adicionarUser(user);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			}
-		
-	}
+	
 }
 }

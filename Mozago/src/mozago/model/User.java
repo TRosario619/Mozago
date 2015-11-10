@@ -2,11 +2,27 @@ package mozago.model;
 
 public class User {
 	
-	private String nome, apelido, email, password, username, categoria, idUser;
+	private String nome, apelido, email, password, username;
+	private int categoria, idUser;
 	private long telefone;
 	
-	public User(String idUser, String nome, String apelido, String email, String password,
-			String username, String categoria, long telefone) {
+	public User(){
+		
+	}
+	
+	public User(User user){
+		this.idUser=user.idUser;;
+		this.nome = user.nome;
+		this.apelido = user.apelido;
+		this.email = user.email;
+		this.password = user.password;
+		this.username = user.username;
+		this.categoria = user.categoria;
+		this.telefone = user.telefone;
+		
+	}
+	public User(int idUser, String nome, String apelido, String email, String password,
+			String username, int categoria, long telefone) {
 		super();
 		this.idUser=idUser;
 		this.nome = nome;
@@ -20,13 +36,13 @@ public class User {
 
 	
 
-	public String getIdUser() {
+	public int getIdUser() {
 		return idUser;
 	}
 
 
 
-	public void setIdUser(String idUser) {
+	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
 
@@ -38,13 +54,13 @@ public class User {
 
 
 
-	public String getCategoria() {
+	public int getCategoria() {
 		return categoria;
 	}
 
 
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(int categoria) {
 		this.categoria = categoria;
 	}
 

@@ -3,33 +3,35 @@ package mozago.bdRelated;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import mozago.bdRelated.BdConecta;
 
 
 import mozago.model.User;
 
-import com.mysql.jdbc.*;
+import com.mysql.jdbc.Connection;
 
 public class UserDAO {
-private static Connection con;
-	
+	private static Connection con;
+				
 	public UserDAO() throws SQLException{
 		this.con=(Connection) BdConecta.getConnection();
 	}
-	
-	public static void adicionarUser(User user) throws SQLException{
-		java.sql.PreparedStatement stmt=con.prepareStatement("insert into usuario (idusuario,nome,apelido,userrname"
+	//idusuario????
+	public void adicionarUser(User user) throws SQLException{
+		java.sql.PreparedStatement stmt=this.con.prepareStatement("insert into usuario (idusuario,nome,apelido,userrname"
 				+ ",password,email,telefone,categoria) values(?,?,?,?,?,?,?,?)");
 		
 		
-		stmt.setString(1, user.getIdUser());
+		stmt.setInt(1, user.getIdUser());
 		stmt.setString(2, user.getNome());
 		stmt.setString(3, user.getApelido());
 		stmt.setString(4, user.getUsername());
 		stmt.setString(5, user.getPassword());
 		stmt.setString(6, user.getEmail());
 		stmt.setLong(7, user.getTelefone());
-		stmt.setString(8, user.getCategoria());
+		stmt.setInt(8, user.getCategoria());
 		
 		stmt.execute();
 		stmt.close();
@@ -55,35 +57,69 @@ private static Connection con;
 	
 	}
 	
-	public void VerificarUser(User user) throws SQLException{
-		Statement selectStmt=(Statement) this.con.createStatement();
+	
+	
+	public static User VerificarUser(String username, String Password) throws SQLException{
+		try{
+			con = (Connection) BdConecta.getConnection();
+				}
+				catch (SQLException e){
+					System.out.println(e.getMessage());
+				}
+		java.sql.PreparedStatement stmt1 = null;
 		
-		 ResultSet rs = ((java.sql.Statement) selectStmt).executeQuery("select provincias.provincia,distritos.distritos,mesavoto.localidade,"
-					+ "mesavoto.votos from provincias inner join mesavoto on provincias.id=mesavoto.p_id inner join distritos on distritos.id=mesavoto.d_id;");
-         while(rs.next())
-         {
-             System.out.print(rs.getString(1)+" ");    
-             System.out.print(rs.getString(2)+" ");    
-             System.out.print(rs.getString(3)+" ");    
-             System.out.println(rs.getString(4));    
-         }
-		try {
-			selectStmt.close();
-			con.close();
-		} catch (Exception e) {
-			e.getMessage();
+			stmt1 = con.prepareStatement("select * from usuario where username=? "
+					+ "and password=?");
+			
+			stmt1.setString(1, username);
+			stmt1.setString(2, Password );
+		
+			
+			User user=null;
+		ResultSet rs = stmt1.executeQuery();
+		while (rs.next()) {
+			String nome = rs.getString("nome");
+			String apelido = rs.getString("apelido");
+			String email = rs.getString("email");
+			String password = rs.getString("password");
+			String username2 = rs.getString("username");
+			int categoria = rs.getInt("categoria");
+			long telefone = rs.getLong("telefone");
+			int id = rs.getInt("idusuario");
+			user=new User(id,nome,apelido,email,password,username,categoria,telefone);
+			System.out.println(nome +"\n"+apelido +"\n"+email +"\n"+password +"\n"+username2 +"\n"+categoria +"\n"+telefone);
+			
+			
+			
+		}
+		return user;
+	/*			
+		if(rs.wasNull()){//toString().equalsIgnoreCase("")){
+//			JOptionPane.showMessageDialog(null, "User/Password incorrect");
+			return null;
 		}
 		
+		else{
+//			java.sql.PreparedStatement stmt=UserDAO.con.prepareStatement("select * from usuario where username=?;");
+//			ResultSet rs1 = stmt.executeQuery();
+//			
+////			System.out.println(rs.getString("nome").toString() +" "+ rs.getString("apelido").toString());
+			return new User(rs.getInt("idusuario"), rs.getString("nome"),rs.getString("apelido"), rs.getString("email"), 
+					rs.getString("password"), rs.getString("username"), rs.getInt("categoria"), rs.getLong("telefone"));
+			
+		}
+		*/
 	
 	}
 	
-public static String generateId(){
+	public static String generateId(){
 		
-		//Calcula proximo IdObra
+		//Calcula proximo IdDespesa
 				String last_id_user;
 				java.sql.PreparedStatement stmt1 = null;
 				try {
-					stmt1 = UserDAO.con.prepareStatement("select max(idusuario from usuario;");
+					stmt1 = UserDAO.con.prepareStatement("select max(idusuario) from usuario;");
+				
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -97,10 +133,14 @@ public static String generateId(){
 				}
 				last_id_user=rs.toString();
 				
-		
-		return (""+Integer.parseInt(last_id_user)+1);
-		
+				if(last_id_user=="NULL"){
+					return 1+"";
+				}
+				
+				
+				else{
+					return (""+Integer.parseInt(last_id_user)+1);
+				}
 	}
-	
-	
+
 }

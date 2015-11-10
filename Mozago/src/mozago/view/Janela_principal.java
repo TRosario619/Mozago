@@ -27,6 +27,8 @@ import mozago.controller.point;
 
 
 
+import mozago.model.User;
+
 import java.awt.Font;
 import java.awt.Color;
 
@@ -35,7 +37,7 @@ import java.awt.Color;
 public class Janela_principal extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
-	private String data,horas,user;
+	private String data,horas;
 	private Date dataSistema =new Date();
 	private JButton btnCriarObra = new JButton("Criar Obra");
 	private JButton btnVisualizar = new JButton("Visualizar");
@@ -45,23 +47,11 @@ public class Janela_principal extends JFrame implements ActionListener{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Janela_principal frame = new Janela_principal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
-	public Janela_principal() {
+	public Janela_principal(User user) {
 		 UIManager.put("OptionPane.yesButtonText", "Sim");  
          UIManager.put("OptionPane.cancelButtonText", "Cancelar");  
          UIManager.put("OptionPane.noButtonText", "Não");  
@@ -129,7 +119,7 @@ public class Janela_principal extends JFrame implements ActionListener{
 		lblHora.setBounds(604, 542, 96, 30);
 		panelPrincipal.add(lblHora);
 		
-		JLabel lblUser = new JLabel("<dynamic>");
+		JLabel lblUser = new JLabel(user.getNome() + " " + user.getApelido());
 		lblUser.setFont(new Font("Consolas", Font.PLAIN, 14));
 		lblUser.setBounds(547, 49, 245, 30);
 		panelPrincipal.add(lblUser);

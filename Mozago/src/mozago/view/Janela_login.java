@@ -2,10 +2,12 @@ package mozago.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.Locale;
 
 import javax.swing.JFrame;
@@ -23,7 +25,9 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+import mozago.bdRelated.UserDAO;
 import mozago.controller.point;
+import mozago.model.User;
 
 import java.awt.Color;
 
@@ -134,8 +138,9 @@ public class Janela_login extends JFrame implements ActionListener{
 				setLocation(point.findScreenCenter(this));
 		
 
-		btn_limpar.addActionListener(this);
-		btn_login.addActionListener(this);
+				//accoes - HN
+				btn_limpar.addActionListener(this);
+				btn_login.addActionListener(this);
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -165,14 +170,28 @@ public class Janela_login extends JFrame implements ActionListener{
 		if(e.getSource()==btn_limpar){
 			textField_username.setText("");
 			passwordField.setText("");
-			
-		if(e.getSource()==btn_login){
-			if(verificarVazios()){
-				//log in
-			}
-		}
-			
 		}
 		
-	}
+		if(e.getSource()==btn_login){
+			if(verificarVazios()){
+			User user=null;
+			try {
+//				user = new User(UserDAO.VerificarUser(textField_username.getText(),passwordField.getPassword().toString()));
+				user = new User(UserDAO.VerificarUser(textField_username.getText().toString(),passwordField.getText().toString()));
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.getMessage();
+				System.out.println("erro action listener btn login");
+			}
+			
+			if(user==null){
+				JOptionPane.showMessageDialog(null, "User/Password incorrect");}
+			else{
+				Janela_principal janela = new Janela_principal(user);
+				janela.setVisible(true);
+				this.dispose();
+			} //endElse
+			}//endIfVerificarVazios
+		}
+		}//endIFActionListener
 }
