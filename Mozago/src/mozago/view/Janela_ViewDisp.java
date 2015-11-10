@@ -134,7 +134,7 @@ public class Janela_ViewDisp extends JFrame {
 		
 		JButton btnVerDespois = new JButton("Ver despois");
 		btnVerDespois.setIcon(new ImageIcon(Janela_ViewDisp.class.getResource("/img/Janela_viewDisp/ver-depois.png")));
-		btnVerDespois.setBounds(380, 549, 118, 42);
+		btnVerDespois.setBounds(248, 549, 118, 42);
 		contentPane.add(btnVerDespois);
 		
 		JButton btnGuardar = new JButton("Guardar ");
@@ -146,6 +146,11 @@ public class Janela_ViewDisp extends JFrame {
 		btnAprovar.setIcon(new ImageIcon(Janela_ViewDisp.class.getResource("/img/Janela_viewDisp/approvar.png")));
 		btnAprovar.setBounds(627, 549, 125, 42);
 		contentPane.add(btnAprovar);
+		
+		JButton btnCriar = new JButton("Criar");
+		btnCriar.setIcon(new ImageIcon(Janela_ViewDisp.class.getResource("/img/Janela_users/criar.png")));
+		btnCriar.setBounds(376, 549, 119, 42);
+		contentPane.add(btnCriar);
 		
 		JLabel lblBg = new JLabel("bg");
 		lblBg.setIcon(new ImageIcon(Janela_ViewDisp.class.getResource("/img/Janela_viewdisp/bg.png")));

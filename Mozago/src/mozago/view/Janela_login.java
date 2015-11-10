@@ -94,26 +94,26 @@ public class Janela_login extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 		
 		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(20, 160, 142, 30);
+		lblUsername.setBounds(10, 157, 142, 30);
 		contentPane.add(lblUsername);
 		lblUsername.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
 		
 		JLabel lbl_password = new JLabel("Password:");
 		lbl_password.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
-		lbl_password.setBounds(30, 211, 118, 30);
+		lbl_password.setBounds(20, 208, 118, 30);
 		contentPane.add(lbl_password);
 		
 		textField_username = new JTextField();
 		textField_username.setForeground(Color.GRAY);
-		textField_username.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
-		textField_username.setBounds(167, 157, 226, 33);
+		textField_username.setFont(new Font("Futura Lt BT", Font.BOLD, 23));
+		textField_username.setBounds(177, 157, 251, 33);
 		contentPane.add(textField_username);
 		textField_username.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setForeground(Color.GRAY);
-		passwordField.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
-		passwordField.setBounds(167, 211, 226, 29);
+		passwordField.setFont(new Font("Futura Lt BT", Font.BOLD, 23));
+		passwordField.setBounds(177, 211, 251, 29);
 		contentPane.add(passwordField);
 		
 		btn_login.setForeground(new Color(255, 153, 0));
