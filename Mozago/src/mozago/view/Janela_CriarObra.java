@@ -53,6 +53,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 	private JComboBox comboBoxGestor;
 	private JButton btnGuardar;
 	private JButton btnLimpar;
+	private JComboBox comboBoxTipoObra;
 
 	/**
 	 * Launch the application.
@@ -181,6 +182,11 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		btnLimpar.setBounds(463, 614, 136, 44);
 		panelCriarObra.add(btnLimpar);
 		
+		comboBoxTipoObra = new JComboBox();
+		comboBoxTipoObra.setModel(new DefaultComboBoxModel(new String[] {"--Escolha um tipo de obra--", "Constru\u00E7\u00E3o", "Reabilita\u00E7\u00E3o", "Expans\u00E3o"}));
+		comboBoxTipoObra.setBounds(55, 334, 301, 50);
+		panelCriarObra.add(comboBoxTipoObra);
+		
 		
 		
 		JLabel labelBG = new JLabel("");
@@ -259,7 +265,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 						txtDescricao.getText(),			//decricao
 						txtDonoDaObra.getText(),//dono_obra
 						txtContacto.getText(), //contacto_dono_obra
-						"tipo de obra",//tipo_obra
+						comboBoxTipoObra.getSelectedIndex(),//tipo_obra
 						txtDataInicio.getText(),//data_inicio
 						" ",	//data_fim_no momento de criacao esta data é nula - HN
 						txtDataFim.getText(), //data_prazo

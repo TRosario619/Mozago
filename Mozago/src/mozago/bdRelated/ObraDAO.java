@@ -35,7 +35,7 @@ public class ObraDAO {
 		stmt.setString(2, obra.getDecricao());
 		stmt.setString(3, obra.getDono_obra());
 		stmt.setString(4, obra.getContacto_dono_obra());
-		stmt.setString(5,obra.getTipo_obra());
+		stmt.setInt(5,obra.getTipo_obra());
 		stmt.setString(6, obra.getData_inicio());
 		stmt.setString(7, obra.getData_fim());
 		stmt.setString(8, obra.getData_prazo());
