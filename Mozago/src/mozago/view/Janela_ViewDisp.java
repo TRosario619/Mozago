@@ -148,7 +148,7 @@ public class Janela_ViewDisp extends JFrame {
 		contentPane.add(btnAprovar);
 		
 		JLabel lblBg = new JLabel("bg");
-		lblBg.setIcon(new ImageIcon(Janela_ViewDisp.class.getResource("/img/Janela_viewDisp/bg.png")));
+		lblBg.setIcon(new ImageIcon(Janela_ViewDisp.class.getResource("/img/Janela_viewdisp/bg.png")));
 		lblBg.setBounds(-10, -11, 800, 616);
 		contentPane.add(lblBg);}
 		
