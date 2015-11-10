@@ -41,8 +41,8 @@ public class Janela_principal extends JFrame implements ActionListener{
 	private Date dataSistema =new Date();
 	private JButton btnCriarObra = new JButton("Criar Obra");
 	private JButton btnVisualizar = new JButton("Visualizar");
-	private JButton btnUsuarios = new JButton("Usuarios");
-	
+	private JButton btnUsuarios = new JButton("Usuários");
+	private User user;
 
 	/**
 	 * Launch the application.
@@ -57,7 +57,7 @@ public class Janela_principal extends JFrame implements ActionListener{
          UIManager.put("OptionPane.noButtonText", "Não");  
          UIManager.put("OptionPane.okButtonText", "OK");  
 	    Locale.setDefault(new Locale("pt","PT"));  
-	    
+	   this.user=user;
 		addWindowListener(new WindowAdapter() {
 			@Override
 			  public void windowClosing(WindowEvent e) {  
@@ -105,7 +105,7 @@ public class Janela_principal extends JFrame implements ActionListener{
 		
 		JLabel lblData = new JLabel("18 de August de 2014");
 		lblData.setFont(new Font("Consolas", Font.PLAIN, 14));
-		lblData.setBounds(416, 542, 170, 30);
+		lblData.setBounds(409, 542, 176, 30);
 		panelPrincipal.add(lblData);
 		
 		JLabel label_4 = new JLabel("::");
@@ -194,7 +194,7 @@ public class Janela_principal extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource()==btnUsuarios){
-			//janela usuarios ainda nao foi criada - HN
+			new Janela_users(user).setVisible(true);
 		}
 		
 		if(e.getSource()==btnVisualizar){
