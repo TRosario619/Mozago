@@ -151,7 +151,7 @@ public static Vector<User> retornaUsuarios() throws SQLException{
 			long telefone = rs.getLong("telefone");
 			int id = rs.getInt("idusuario");
 			user=new User(id,nome,apelido,email,password,username,categoria,telefone);
-			System.out.println(nome +"\n"+apelido +"\n"+email +"\n"+password +"\n"+username +"\n"+categoria +"\n"+telefone);
+//			System.out.println(nome +"\n"+apelido +"\n"+email +"\n"+password +"\n"+username +"\n"+categoria +"\n"+telefone);
 			users.addElement(user);
 			
 			
@@ -192,7 +192,7 @@ public static Vector<User> retornaUsuariosCatgoria(int cat) throws SQLException{
 			long telefone = rs.getLong("telefone");
 			int id = rs.getInt("idusuario");
 			user=new User(id,nome,apelido,email,password,username,categoria,telefone);
-			System.out.println(nome +"\n"+apelido +"\n"+email +"\n"+password +"\n"+username +"\n"+categoria +"\n"+telefone);
+//			System.out.println(nome +"\n"+apelido +"\n"+email +"\n"+password +"\n"+username +"\n"+categoria +"\n"+telefone);
 			users.addElement(user);
 			
 			

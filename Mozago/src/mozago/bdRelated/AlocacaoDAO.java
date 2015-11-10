@@ -1,0 +1,100 @@
+package mozago.bdRelated;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+
+import mozago.model.Obra;
+import mozago.model.User;
+
+import com.mysql.jdbc.Connection;
+
+public class AlocacaoDAO {
+	private static Connection con;
+	
+	@SuppressWarnings("static-access")
+	public AlocacaoDAO() throws SQLException{
+		
+	this.con=(Connection) BdConecta.getConnection();
+		
+	}
+	
+	public static void inserir(Obra obra, User admin, User gestor, User director) throws SQLException{
+		
+		
+		
+		
+		//Criar Obra
+		java.sql.PreparedStatement stmt=AlocacaoDAO.con.prepareStatement("insert into alocacao (idalocacao, admin,"
+				+ "director, gestor, obra, data)"
+				+ " values(?,?,?,?,?,?)");
+		
+		stmt.setInt(1, AlocacaoDAO.generateId());
+		stmt.setInt(2, admin.getIdUser());
+		stmt.setInt(3, director.getIdUser());
+		stmt.setInt(4, gestor.getIdUser());
+		stmt.setInt(5, obra.getId_obra());
+		
+		Date data = new Date();
+		String dataString;
+		dataString = data.getDate()+""+data.getMonth()+""+data.getYear();
+		long dataLong = Long.parseLong(dataString);
+		java.sql.Date date = new java.sql.Date(dataLong);
+		stmt.setDate(6, (java.sql.Date) date);
+		
+		
+				
+		stmt.execute();
+		try {
+			stmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		
+		/*idalocacao` int(11) NOT NULL,
+  `admin` int(11) DEFAULT NULL,
+  `director` int(11) DEFAULT NULL,
+  `gestor` int(11) DEFAULT NULL,
+  `obra` int(11) DEFAULT NULL,
+  `data` date DEFAULT NULL,*/
+		
+	}
+
+public static int generateId() throws SQLException{
+		
+		//Calcula proximo IdObra
+		try{
+			con = (Connection) BdConecta.getConnection();
+				}
+				catch (SQLException e){
+					System.out.println(e.getMessage());
+				}
+				int last_id_obra = 0;
+				java.sql.PreparedStatement stmt121;
+				
+				
+				stmt121 = AlocacaoDAO.con.prepareStatement("select max(idalocacao) from alocacao;");
+			
+				
+				
+				ResultSet rs = stmt121.executeQuery();
+					while(rs.next()){
+					last_id_obra=Integer.parseInt(rs.getString("max(idalocacao)"));
+					}
+				
+				
+				System.out.println("Last id Obra: "+last_id_obra);
+				if(last_id_obra==0){
+					return 1;
+				}
+				else{
+					return (last_id_obra+1);
+				}
+		
+		
+					
+					}
+	
+
+}

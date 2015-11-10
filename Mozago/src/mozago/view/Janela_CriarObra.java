@@ -24,10 +24,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
 
+import mozago.bdRelated.AlocacaoDAO;
 import mozago.bdRelated.BdConecta;
 import mozago.bdRelated.ObraDAO;
 import mozago.bdRelated.UserDAO;
@@ -41,8 +43,6 @@ import javax.swing.DefaultComboBoxModel;
 public class Janela_CriarObra extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JTextField txtDataInicio;
-	private JTextField txtDataFim;
 	private JTextField txtDescricao;
 	private JTextField txtDonoDaObra;
 	private JTextField txtValorProjecto;
@@ -54,29 +54,38 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 	private JButton btnGuardar;
 	private JButton btnLimpar;
 	private JComboBox comboBoxTipoObra;
+	private JComboBox comboBoxInicioDia;
+	private JComboBox comboBoxInicioMes;
+	private JComboBox comboBoxInicioAno;
+	private JComboBox comboBoxFimAno;
+	private JComboBox comboBoxFimMes;
+	private JComboBox comboBoxFimDia;
+	private User user = new User();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Janela_CriarObra frame = new Janela_CriarObra();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		User user = new User();
+							Janela_CriarObra frame;
+							try {
+								frame = new Janela_CriarObra(user);
+								frame.setVisible(true);
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					
+				
 	}
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public Janela_CriarObra() {
+	public Janela_CriarObra(User user) throws SQLException {
 		
-		
+		this.user=user;
 		setTitle("MOZAGO");
 		setResizable(false);
 		
@@ -110,22 +119,6 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		lblIdObrar.setFont(new Font("FuturaExtended", Font.BOLD, 26));
 		lblIdObrar.setBounds(55, 175, 125, 43);
 		panelCriarObra.add(lblIdObrar);
-		
-		txtDataInicio = new JTextField();
-		txtDataInicio.setToolTipText("Data de Inicio da Obra");
-		txtDataInicio.setForeground(Color.GRAY);
-		txtDataInicio.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
-		txtDataInicio.setBounds(451, 173, 230, 43);
-		panelCriarObra.add(txtDataInicio);
-		txtDataInicio.setColumns(10);
-		
-		txtDataFim = new JTextField();
-		txtDataFim.setToolTipText("Data do Fim da obra");
-		txtDataFim.setForeground(Color.GRAY);
-		txtDataFim.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
-		txtDataFim.setColumns(10);
-		txtDataFim.setBounds(451, 256, 230, 43);
-		panelCriarObra.add(txtDataFim);
 		
 		txtDescricao = new JTextField();
 		txtDescricao.setToolTipText("Descricao da Obra");
@@ -187,6 +180,46 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		comboBoxTipoObra.setBounds(55, 334, 301, 50);
 		panelCriarObra.add(comboBoxTipoObra);
 		
+		String[] dias=new String[32];
+		dias[0]="Dia";
+		for(int i = 1; i<32;i++){
+			dias[i]=i+"";
+			}
+		
+		String[] anos=new String[32];
+		dias[0]="Ano";
+		for(int i = 1; i<32;i++){
+			
+			anos[i]=i+2015+"";
+		}
+		
+		String[] meses = {"mês","janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro",
+				"novembro","dezembro"};
+		
+		comboBoxInicioDia = new JComboBox(dias);
+		comboBoxInicioDia.setBounds(451, 175, 53, 43);
+		panelCriarObra.add(comboBoxInicioDia);
+		
+		comboBoxInicioMes = new JComboBox(meses);
+		comboBoxInicioMes.setBounds(514, 175, 157, 43);
+		panelCriarObra.add(comboBoxInicioMes);
+		
+		comboBoxInicioAno = new JComboBox(anos);
+		comboBoxInicioAno.setBounds(681, 175, 68, 43);
+		panelCriarObra.add(comboBoxInicioAno);
+		
+		comboBoxFimAno = new JComboBox(anos);
+		comboBoxFimAno.setBounds(681, 256, 68, 43);
+		panelCriarObra.add(comboBoxFimAno);
+		
+		comboBoxFimMes = new JComboBox(meses);
+		comboBoxFimMes.setBounds(514, 256, 157, 43);
+		panelCriarObra.add(comboBoxFimMes);
+		
+		comboBoxFimDia = new JComboBox(dias);
+		comboBoxFimDia.setBounds(451, 256, 53, 43);
+		panelCriarObra.add(comboBoxFimDia);
+		
 		
 		
 		JLabel labelBG = new JLabel("");
@@ -205,7 +238,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		}
 		
 		//Generate Id da Obra --AB
-		lblIdObrar.setText(UserDAO.generateId()+"");
+		lblIdObrar.setText(ObraDAO.generateId()+"");
 		
 		
 		btnGuardar.addActionListener(this);
@@ -218,9 +251,10 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 	}
 	
 	private boolean verificarVazios(){
-		if ( txtContacto.getText().isEmpty() || txtDataFim.getText().isEmpty() || 
-				txtDataInicio.getText().isEmpty() || txtDataFim.getText().isEmpty() ||
-				txtDescricao.getText().isEmpty() || txtDonoDaObra.getText().isEmpty() ||
+		if ( txtContacto.getText().isEmpty() || comboBoxFimAno.getSelectedIndex()==0||
+				comboBoxFimMes.getSelectedIndex()==0||comboBoxFimDia.getSelectedIndex()==0||
+				comboBoxInicioAno.getSelectedIndex()==0||comboBoxInicioMes.getSelectedIndex()==0||
+				comboBoxInicioDia.getSelectedIndex()==0||txtDescricao.getText().isEmpty() || txtDonoDaObra.getText().isEmpty() ||
 				txtValor.getText().isEmpty() || txtValorProjecto.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "preencha todos os campos");
 			return false;}
@@ -250,9 +284,6 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		}
 		
 		
-		
-		
-		
 	}
 		
 @Override
@@ -260,41 +291,65 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnGuardar){
 			if(verificarVazios()){
+				Obra obra=new Obra();
 				//falta tipo de obra - HN
 				//ja pus o tipo de obra!! - AB
-				Obra obra=new Obra(ObraDAO.generateId(), //id_obra
-						txtDescricao.getText(),			//decricao
-						txtDonoDaObra.getText(),//dono_obra
-						txtContacto.getText(), //contacto_dono_obra
-						comboBoxTipoObra.getSelectedIndex(),//tipo_obra
-						txtDataInicio.getText(),//data_inicio
-						null,	//data_fim_no momento de criacao esta data é nula - HN
-						txtDataFim.getText(), //data_prazo
-						Double.parseDouble(txtValorProjecto.getText())); //valorProjectado
 				
+				Date data_inicio=new Date(Integer.parseInt(comboBoxInicioAno.getSelectedItem().toString()),(comboBoxInicioMes.getSelectedIndex()-1),comboBoxInicioDia.getSelectedIndex());
+				Date data_fim=new Date(Integer.parseInt(comboBoxFimAno.getSelectedItem().toString()),(comboBoxFimMes.getSelectedIndex()-1),comboBoxFimDia.getSelectedIndex());
+						
 				try {
-					ObraDAO.inserir(obra);
-				} catch (SQLException e1) {
+					obra=new Obra(ObraDAO.generateId(), //id_obra
+							txtDescricao.getText(),			//decricao
+							txtDonoDaObra.getText(),//dono_obra
+							txtContacto.getText(), //contacto_dono_obra
+							comboBoxTipoObra.getSelectedIndex(),//tipo_obra
+							data_inicio,data_fim,
+							null,	//data_fim_no momento de criacao esta data é nula - HN
+							Double.parseDouble(txtValorProjecto.getText()));
+				} catch (NumberFormatException e2) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
+					e2.printStackTrace();
+				} catch (SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} //valorProjectado
+				try {	
+						User admin = new User();
+						admin= UserDAO.VerificarUser(user.getUsername());
+						User director = new User();
+						director= UserDAO.VerificarUser(comboBoxDirector.getSelectedItem().toString());
+						User gestor = new User();
+						gestor= UserDAO.VerificarUser(user.getUsername());
+					AlocacaoDAO.inserir(obra, admin, gestor, director);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				 new Janela_CriarObraInvs(obra, user).setVisible(true);
+							
 				
 			}
 			
-		}
+		} //EndBtnGuardar
 		
 		if(e.getSource() == btnLimpar){
 			txtContacto.setText("");
-			txtDataFim.setText("");
-			txtDataInicio.setText("");
-			txtDataFim.setText("");
+			comboBoxFimAno.setSelectedIndex(0);
+			comboBoxFimMes.setSelectedIndex(0);
+			comboBoxFimDia.setSelectedIndex(0);
+			comboBoxInicioAno.setSelectedIndex(0);
+			comboBoxInicioDia.setSelectedIndex(0);
+			comboBoxInicioMes.setSelectedIndex(0);
 			txtDescricao.setText("");
 			txtDonoDaObra.setText("");
 			txtValor.setText(""); 
 			//txtValorProjecto.setText(""); nao existe!!!! AB
 			comboBoxDirector.setSelectedIndex(0);
 			comboBoxGestor.setSelectedIndex(0);
+			
+			comboBoxTipoObra.setSelectedIndex(0);;
 		}
 		
 	}

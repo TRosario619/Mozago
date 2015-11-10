@@ -3,25 +3,18 @@ package mozago.model;
 import java.util.Date;
 
 public class Investimento {
-	private int idInvestimento,IdObra;
+	private int idInvestimento;
 	private double valor;
-	private Date data;
+	private static Date data = new Date();
 	private String descricao;
-	
-	
-	
+		
 	public int getIdInvestimento() {
 		return idInvestimento;
 	}
 	public void setIdInvestimento(int idInvestimento) {
 		this.idInvestimento = idInvestimento;
 	}
-	public int getIdObra() {
-		return IdObra;
-	}
-	public void setIdObra(int idObra) {
-		IdObra = idObra;
-	}
+	
 	public String getDescricao() {
 		return descricao;
 	}
@@ -37,13 +30,14 @@ public class Investimento {
 	public Date getData() {
 		return data;
 	}
+	public Investimento(int idInvestimento, double valor, String descricao) {
+		super();
+		this.idInvestimento = idInvestimento;
+		this.valor = valor;
+		this.descricao = descricao;
+	}
 	public void setData(Date data) {
 		this.data = data;
 	}
-	public Investimento(double valor, Date data) {
-		super();
-		this.valor = valor;
-		this.data = data;
-	}
-
+	
 }

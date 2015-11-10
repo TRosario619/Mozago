@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -189,8 +190,15 @@ public class Janela_principal extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==btnCriarObra){
-			Janela_CriarObra janela = new Janela_CriarObra();
-			janela.setVisible(true);
+			Janela_CriarObra janela;
+			try {
+				janela = new Janela_CriarObra(user);
+				janela.setVisible(true);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 		}
 		
 		if(e.getSource()==btnUsuarios){

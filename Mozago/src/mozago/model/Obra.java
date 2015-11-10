@@ -1,15 +1,24 @@
 package mozago.model;
 
+import java.util.Date;
+
 public class Obra {
 	
 	
-	private String id_obra,decricao,dono_obra, contacto_dono_obra, data_inicio, data_fim,duracao, data_prazo;
+	private String decricao,dono_obra, contacto_dono_obra,duracao;
+	private int id_obra;
+	private Date data_inicio = new Date(); 
+	private Date data_fim = new Date(); 
+	private Date data_prazo = new Date(); 
 	private int tipo_obra;
 	private Double valorProjectado;
 	
-	public Obra(String id_obra, String decricao, String dono_obra,
-			String contacto_dono_obra, int tipo_obra, String data_inicio,
-			String data_fim, String data_prazo, Double valorProjectado) {
+	public Obra(){
+		
+	}
+	public Obra(int id_obra, String decricao, String dono_obra,
+			String contacto_dono_obra, int tipo_obra, Date data_inicio,
+			Date data_fim, Date data_prazo, Double valorProjectado) {
 		super();
 		this.id_obra = id_obra;
 		this.decricao = decricao;
@@ -24,22 +33,22 @@ public class Obra {
 	
 
 	
-	public String getData_prazo() {
+	public Date getData_prazo() {
 		return data_prazo;
 	}
 
 
 
-	public void setData_prazo(String data_prazo) {
+	public void setData_prazo(Date data_prazo) {
 		this.data_prazo = data_prazo;
 	}
 
 
 
-	public String getId_obra() {
+	public int getId_obra() {
 		return id_obra;
 	}
-	public void setId_obra(String id_obra) {
+	public void setId_obra(int id_obra) {
 		this.id_obra = id_obra;
 	}
 	public String getDecricao() {
@@ -66,16 +75,16 @@ public class Obra {
 	public void setTipo_obra(int tipo_obra) {
 		this.tipo_obra = tipo_obra;
 	}
-	public String getData_inicio() {
+	public Date getData_inicio() {
 		return data_inicio;
 	}
-	public void setData_inicio(String data_inicio) {
+	public void setData_inicio(Date data_inicio) {
 		this.data_inicio = data_inicio;
 	}
-	public String getData_fim() {
+	public Date getData_fim() {
 		return data_fim;
 	}
-	public void setData_fim(String data_fim) {
+	public void setData_fim(Date data_fim) {
 		this.data_fim = data_fim;
 	}
 	public String getDuracao() {
