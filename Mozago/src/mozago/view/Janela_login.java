@@ -30,6 +30,8 @@ import mozago.controller.point;
 import mozago.model.User;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Janela_login extends JFrame implements ActionListener{
 
@@ -111,6 +113,19 @@ public class Janela_login extends JFrame implements ActionListener{
 		textField_username.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			 public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+		            login();
+		        }
+//		        Component frame = new JFrame();
+//		        JOptionPane.showMessageDialog(frame , "You've Submitted the name " + nameInput.getText());
+
+		    }
+
+			
+		});
 		passwordField.setForeground(Color.GRAY);
 		passwordField.setFont(new Font("Futura Lt BT", Font.BOLD, 23));
 		passwordField.setBounds(177, 211, 251, 29);
@@ -164,16 +179,8 @@ public class Janela_login extends JFrame implements ActionListener{
 			}
 		}
 	
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-		if(e.getSource()==btn_limpar){
-			textField_username.setText("");
-			passwordField.setText("");
-		}
-		
-		if(e.getSource()==btn_login){
-			if(verificarVazios()){
+	private void login(){
+		if(verificarVazios()){
 			User user=null;
 			try {
 //				user = new User(UserDAO.VerificarUser(textField_username.getText(),passwordField.getPassword().toString()));
@@ -193,5 +200,19 @@ public class Janela_login extends JFrame implements ActionListener{
 			} //endElse
 			}//endIfVerificarVazios
 		}
-		}//endIFActionListener
+		//endIFActionListener
+	
+	
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+		if(e.getSource()==btn_limpar){
+			textField_username.setText("");
+			passwordField.setText("");
+		}
+		
+		if(e.getSource()==btn_login){
+			login();
+			}
+	}
 }
