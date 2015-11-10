@@ -7,8 +7,6 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import mozago.bdRelated.BdConecta;
-
-
 import mozago.model.User;
 
 import com.mysql.jdbc.Connection;
@@ -20,8 +18,8 @@ public class UserDAO {
 		this.con=(Connection) BdConecta.getConnection();
 	}
 	//idusuario????
-	public void adicionarUser(User user) throws SQLException{
-		java.sql.PreparedStatement stmt=this.con.prepareStatement("insert into usuario (idusuario,nome,apelido,userrname"
+	public static void adicionarUser(User user) throws SQLException{
+		java.sql.PreparedStatement stmt=con.prepareStatement("insert into usuario (idusuario,nome,apelido,username"
 				+ ",password,email,telefone,categoria) values(?,?,?,?,?,?,?,?)");
 		
 		
@@ -85,6 +83,84 @@ public class UserDAO {
 		return user;
 	
 	}
+	
+	public static User VerificarUser(String username) throws SQLException{
+		try{
+			con = (Connection) BdConecta.getConnection();
+				}
+				catch (SQLException e){
+					System.out.println(e.getMessage());
+				}
+		java.sql.PreparedStatement stmt1 = null;
+		
+			stmt1 = con.prepareStatement("select * from usuario where username=? ");
+			
+			stmt1.setString(1, username);
+			
+		
+			ResultSet rs = stmt1.executeQuery();
+			
+			User user=null;
+		
+		while (rs.next()) {
+			String nome = rs.getString("nome");
+			String apelido = rs.getString("apelido");
+			String email = rs.getString("email");
+			String password2 = rs.getString("password");
+			String username2 = rs.getString("username");
+			int categoria = rs.getInt("categoria");
+			long telefone = rs.getLong("telefone");
+			int id = rs.getInt("idusuario");
+			user=new User(id,nome,apelido,email,password2,username,categoria,telefone);
+//			System.out.println(nome +"\n"+apelido +"\n"+email +"\n"+password2 +"\n"+username2 +"\n"+categoria +"\n"+telefone);
+			
+			
+			
+		}
+		return user;
+	
+	}
+	
+public static Vector<User> retornaUsuarios() throws SQLException{
+		
+		Vector<User> users=new Vector<User>();
+		
+		try{
+			con = (Connection) BdConecta.getConnection();
+				}
+				catch (SQLException e){
+					System.out.println(e.getMessage());
+				}
+		java.sql.PreparedStatement stmt1 = null;
+		
+			stmt1 = con.prepareStatement("select * from usuario;");
+			
+		
+		
+			ResultSet rs = stmt1.executeQuery();
+			
+			User user=null;
+		
+		while (rs.next()) {
+			String nome = rs.getString("nome");
+			String apelido = rs.getString("apelido");
+			String email = rs.getString("email");
+			String password = rs.getString("password");
+			String username = rs.getString("username");
+			int categoria = rs.getInt("categoria");
+			long telefone = rs.getLong("telefone");
+			int id = rs.getInt("idusuario");
+			user=new User(id,nome,apelido,email,password,username,categoria,telefone);
+			System.out.println(nome +"\n"+apelido +"\n"+email +"\n"+password +"\n"+username +"\n"+categoria +"\n"+telefone);
+			users.addElement(user);
+			
+			
+		}
+		
+		
+		return users;
+		
+	}
 public static Vector<User> retornaUsuariosCatgoria(int cat) throws SQLException{
 		
 		Vector<User> users=new Vector<User>();
@@ -143,7 +219,11 @@ public static Vector<User> retornaUsuariosCatgoria(int cat) throws SQLException{
 			ResultSet rs = null;
 			try {
 				rs = stmt1.executeQuery();
-			} catch (SQLException e) {
+				while (rs.next()){
+				last_id_user=Integer.parseInt(rs.getString("max(idusuario)"));}
+				
+				
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

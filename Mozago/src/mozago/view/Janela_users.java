@@ -33,6 +33,7 @@ import mozago.bdRelated.UserDAO;
 import mozago.controller.point;
 import mozago.model.User;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Janela_users extends JFrame implements ActionListener{
 
@@ -178,15 +179,16 @@ public class Janela_users extends JFrame implements ActionListener{
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE))
 		);
 		panel.setLayout(gl_panel);
+		comboBox_categoria.setModel(new DefaultComboBoxModel(new String[] {"--Selecione uma Categoria", "Administrador", "Director", "Gestor"}));
+		
+		
+		comboBox_categoria.setBounds(549, 235, 177, 28);
+		contentPane.add(comboBox_categoria);
 		
 		JLabel lblBg = new JLabel("BG");
 		lblBg.setIcon(new ImageIcon(Janela_users.class.getResource("/img/Janela_users/BG.png")));
 		lblBg.setBounds(0, 0, 798, 663);
 		contentPane.add(lblBg);
-		
-		
-		comboBox_categoria.setBounds(549, 235, 177, 28);
-		contentPane.add(comboBox_categoria);
 		
 		btnApagar.addActionListener(this);
 		btnCriar.addActionListener(this);
@@ -247,28 +249,24 @@ private boolean verificarVazios(){
 		return true;
 	}
 }
-//@Override
-//public void actionPerformed(ActionEvent e) {
-//	// TODO Auto-generated method stub
-//	if(e.getSource()==btnCriar){
-//		if(verificarVazios()){
-//			User user=new User(UserDAO.generateId(),txtNome.getText(),txtApelido.getText(),
-//					txtEmail.getText(),txtPassword.getText(),txtUsername.getText(),
-//					txtCategoria.getText(),Long.parseLong(txtTelefone.getText()));
-//			try {
-//				UserDAO.adicionarUser(user);
-//			} catch (SQLException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//			
-//			}
-//		
-//	}
-//}
 @Override
-public void actionPerformed(ActionEvent arg0) {
+public void actionPerformed(ActionEvent e) {
 	// TODO Auto-generated method stub
-	
+	if(e.getSource()==btnCriar){
+		if(verificarVazios()){
+			User user=new User(UserDAO.generateId(),txtNome.getText(),txtApelido.getText(),
+					txtEmail.getText(),txtPassword.getText(),txtUsername.getText(),
+					comboBox_categoria.getSelectedIndex(),Long.parseLong(txtTelefone.getText()));
+			try {
+				UserDAO.adicionarUser(user);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			}
+		
+	}
 }
+
 }
