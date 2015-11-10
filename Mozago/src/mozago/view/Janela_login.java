@@ -155,7 +155,7 @@ public class Janela_login extends JFrame implements ActionListener{
 	}
 
 	private boolean verificarVazios(){
-		if(textField_username.getText().isEmpty() || passwordField.getText().isEmpty()){
+		if(textField_username.getText().isEmpty() || passwordField.getPassword().toString().isEmpty()){
 			JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos");
 			return false;
 			}
@@ -177,7 +177,7 @@ public class Janela_login extends JFrame implements ActionListener{
 			User user=null;
 			try {
 //				user = new User(UserDAO.VerificarUser(textField_username.getText(),passwordField.getPassword().toString()));
-				user = new User(UserDAO.VerificarUser(textField_username.getText().toString(),passwordField.getText().toString()));
+				user = UserDAO.VerificarUser(textField_username.getText().toString(),passwordField.getText());
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.getMessage();

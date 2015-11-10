@@ -12,14 +12,15 @@ public class BdConecta
 		try {
 			 Class.forName("com.mysql.jdbc.Driver");
 			 System.out.println("Conectado");
-			 return DriverManager.getConnection("jdbc:mysql://localhost/mozago_db","haider","haider");
+			 return DriverManager.getConnection("jdbc:mysql://localhost:3307/mozago_db","haider","haider");
 		} catch (Exception e) {
 			throw new SQLException(e.getMessage());
 		}
 		
 	}
+
 	
 	public static void main(String[] arg) throws SQLException{
-		con=(Connection) BdConecta.getConnection();
+		con =(Connection) BdConecta.getConnection();
 	}
 }

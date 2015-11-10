@@ -10,21 +10,11 @@ public class User {
 		
 	}
 	
-	public User(User user){
-		this.idUser=user.idUser;;
-		this.nome = user.nome;
-		this.apelido = user.apelido;
-		this.email = user.email;
-		this.password = user.password;
-		this.username = user.username;
-		this.categoria = user.categoria;
-		this.telefone = user.telefone;
-		
-	}
-	public User(int idUser, String nome, String apelido, String email, String password,
+
+	public User(int idUser2, String nome, String apelido, String email, String password,
 			String username, int categoria, long telefone) {
 		super();
-		this.idUser=idUser;
+		this.idUser=idUser2;
 		this.nome = nome;
 		this.apelido = apelido;
 		this.email = email;

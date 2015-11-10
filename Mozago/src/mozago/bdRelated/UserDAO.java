@@ -70,7 +70,7 @@ public class UserDAO {
 			long telefone = rs.getLong("telefone");
 			int id = rs.getInt("idusuario");
 			user=new User(id,nome,apelido,email,password2,username,categoria,telefone);
-			System.out.println(nome +"\n"+apelido +"\n"+email +"\n"+password2 +"\n"+username2 +"\n"+categoria +"\n"+telefone);
+//			System.out.println(nome +"\n"+apelido +"\n"+email +"\n"+password2 +"\n"+username2 +"\n"+categoria +"\n"+telefone);
 			
 			
 			
@@ -81,7 +81,6 @@ public class UserDAO {
 	
 	public static int generateId(){
 		
-		//Calcula proximo IdDespesa
 				String last_id_user;
 				java.sql.PreparedStatement stmt1 = null;
 				try {

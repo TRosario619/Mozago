@@ -18,6 +18,7 @@ public class UserController {
 //		user = new User(id,nome, apelido, email, password,
 //				username, categoria,telefone);
 //		gravar(user);
+		//HN
 		return true;
 			}
 	}
