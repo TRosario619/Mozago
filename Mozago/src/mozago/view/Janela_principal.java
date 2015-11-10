@@ -173,6 +173,16 @@ public class Janela_principal extends JFrame implements ActionListener{
 		btnCriarObra.addActionListener(this);
 		btnUsuarios.addActionListener(this);
 		btnVisualizar.addActionListener(this);
+		
+		//aqui faltam cenas - HN 
+		if (user.getCategoria()==2){
+			btnCriarObra.setVisible(false);
+			btnUsuarios.setVisible(false);
+		}
+		else if (user.getCategoria()==3){
+			btnCriarObra.setVisible(false);
+			btnUsuarios.setVisible(false);
+		}
 	}
 
 	@Override

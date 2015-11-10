@@ -32,6 +32,7 @@ import javax.swing.JButton;
 import mozago.bdRelated.UserDAO;
 import mozago.controller.point;
 import mozago.model.User;
+import javax.swing.JComboBox;
 
 public class Janela_users extends JFrame implements ActionListener{
 
@@ -42,11 +43,11 @@ public class Janela_users extends JFrame implements ActionListener{
 	private JTextField txtTelefone;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
-	private JTextField txtCategoria;
 	private JTable tableP;
 	private JButton btnCriar;
 	private JButton btnEditar;
 	private JButton btnApagar;
+	private JComboBox comboBox_categoria = new JComboBox();
 	
 	/**
 	 * Launch the application.
@@ -137,11 +138,6 @@ public class Janela_users extends JFrame implements ActionListener{
 		contentPane.add(txtPassword);
 		txtPassword.setColumns(10);
 		
-		txtCategoria = new JTextField();
-		txtCategoria.setBounds(549, 237, 177, 28);
-		contentPane.add(txtCategoria);
-		txtCategoria.setColumns(10);
-		
 		btnCriar = new JButton("Criar");
 		btnCriar.setIcon(new ImageIcon(Janela_users.class.getResource("/img/Janela_users/criar.png")));
 		btnCriar.setBounds(431, 605, 118, 30);
@@ -186,6 +182,10 @@ public class Janela_users extends JFrame implements ActionListener{
 		lblBg.setIcon(new ImageIcon(Janela_users.class.getResource("/img/Janela_users/BG.png")));
 		lblBg.setBounds(0, 0, 798, 663);
 		contentPane.add(lblBg);
+		
+		
+		comboBox_categoria.setBounds(549, 235, 177, 28);
+		contentPane.add(comboBox_categoria);
 		
 		btnApagar.addActionListener(this);
 		btnCriar.addActionListener(this);
@@ -233,7 +233,7 @@ private void inicializarTabela(){
 	}
 
 private boolean verificarVazios(){
-	if(txtApelido.getText().isEmpty() || txtCategoria.getText().isEmpty() ||
+	if(txtApelido.getText().isEmpty() || comboBox_categoria.getSelectedItem().toString().isEmpty() ||
 			txtEmail.getText().isEmpty() || txtNome.getText().isEmpty() ||
 			txtPassword.getText().isEmpty() || txtTelefone.getText().isEmpty() ||
 			txtUsername.getText().isEmpty()){

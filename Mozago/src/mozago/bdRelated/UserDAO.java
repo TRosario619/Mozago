@@ -41,6 +41,12 @@ public class UserDAO {
 	
 	
 	
+	/**
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws SQLException
+	 */
 	public static User VerificarUser(String username, String password) throws SQLException{
 		try{
 			con = (Connection) BdConecta.getConnection();
