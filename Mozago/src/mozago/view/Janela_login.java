@@ -111,6 +111,19 @@ public class Janela_login extends JFrame implements ActionListener{
 		textField_username.setBounds(177, 157, 251, 33);
 		contentPane.add(textField_username);
 		textField_username.setColumns(10);
+		textField_username.addKeyListener(new KeyAdapter() {
+			@Override
+			 public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+		            login();
+		        }
+//		        Component frame = new JFrame();
+//		        JOptionPane.showMessageDialog(frame , "You've Submitted the name " + nameInput.getText());
+
+		    }
+
+			
+		});
 		
 		passwordField = new JPasswordField();
 		passwordField.addKeyListener(new KeyAdapter() {
@@ -170,7 +183,7 @@ public class Janela_login extends JFrame implements ActionListener{
 	}
 
 	private boolean verificarVazios(){
-		if(textField_username.getText().isEmpty() || passwordField.getPassword().toString().isEmpty()){
+		if(textField_username.getText().isEmpty() || passwordField.getText().isEmpty()){
 			JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos");
 			return false;
 			}
