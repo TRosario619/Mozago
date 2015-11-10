@@ -24,6 +24,10 @@ import java.util.Locale;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Janela_criarDespesa extends JFrame {
 
@@ -31,6 +35,7 @@ public class Janela_criarDespesa extends JFrame {
 	private JTextField txtDescricao;
 	private JTextField txtValorUnitario;
 	private JTextField txtQuantidade;
+	private JLabel lblResultado;
 
 	/**
 	 * Launch the application.
@@ -125,6 +130,23 @@ public class Janela_criarDespesa extends JFrame {
 		contentPane.add(lblIdDaObra);
 		
 		txtValorUnitario = new JTextField();
+		txtValorUnitario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				txtValorUnitario.setText("");
+				txtQuantidade.setText("0");
+			}
+		});
+		txtValorUnitario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+					
+					getLblResultado().setText(txtValorUnitario.getText());
+				}else{getLblResultado().setText(txtValorUnitario.getText());}
+			}
+		});
+		
 		txtValorUnitario.setForeground(Color.GRAY);
 		txtValorUnitario.setFont(new Font("Futura Lt BT", Font.BOLD, 22));
 		txtValorUnitario.setText("Valor Unitario");
@@ -133,6 +155,33 @@ public class Janela_criarDespesa extends JFrame {
 		txtValorUnitario.setColumns(10);
 		
 		txtQuantidade = new JTextField();
+		txtQuantidade.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+					
+					if (txtQuantidade.getText()!="" && txtQuantidade.getText()!=null) {
+						String resultado=""+ Integer.parseInt( txtValorUnitario.getText())*Integer.parseInt( txtQuantidade.getText());
+						if (e.getKeyCode() != KeyEvent.VK_BACK_SPACE && txtQuantidade.getText() !="" ) {
+								getLblResultado().setText(String.valueOf(resultado));
+						
+					}else{if (txtQuantidade.getText().isEmpty()) {
+						resultado=""+ Integer.parseInt( txtValorUnitario.getText())*1;
+					}else{
+						resultado=""+ Integer.parseInt( txtValorUnitario.getText())*1;
+						
+						getLblResultado().setText(String.valueOf(resultado));}}
+					}
+				
+			}
+		});
+		txtQuantidade.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				txtQuantidade.setText("");
+				
+			}
+		});
 		txtQuantidade.setForeground(Color.GRAY);
 		txtQuantidade.setFont(new Font("Futura Lt BT", Font.BOLD, 22));
 		txtQuantidade.setText("Quantidade");
@@ -157,10 +206,10 @@ public class Janela_criarDespesa extends JFrame {
 		labelMZN2.setBounds(657, 337, 58, 39);
 		contentPane.add(labelMZN2);
 		
-		JLabel lblResultado = new JLabel("Resultado");
+		lblResultado = new JLabel("Resultado");
 		lblResultado.setForeground(new Color(255, 0, 0));
 		lblResultado.setFont(new Font("FuturaExtended", Font.BOLD, 32));
-		lblResultado.setBounds(487, 337, 216, 39);
+		lblResultado.setBounds(487, 337, 171, 39);
 		contentPane.add(lblResultado);
 		
 		JButton btnLimpar = new JButton("Limpar");
@@ -179,5 +228,8 @@ public class Janela_criarDespesa extends JFrame {
 		lblBg.setBounds(-16, 0, 773, 474);
 		contentPane.add(lblBg);
 		setLocation(point.findScreenCenter(this));
+	}
+	public JLabel getLblResultado() {
+		return lblResultado;
 	}
 }
