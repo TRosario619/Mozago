@@ -72,7 +72,7 @@ public class Janela_ViewDisp extends JFrame {
               
                 if (i == JOptionPane.YES_OPTION) {  
                 	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                //	  new Janela_principal().setVisible(true); 
+                	  new Janela_visualizarObra().setVisible(true); 
                 } else {  
                 	glass.setVisible(false); 
                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
