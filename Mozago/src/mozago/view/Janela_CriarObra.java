@@ -261,13 +261,14 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 		if(e.getSource() == btnGuardar){
 			if(verificarVazios()){
 				//falta tipo de obra - HN
+				//ja pus o tipo de obra!! - AB
 				Obra obra=new Obra(ObraDAO.generateId(), //id_obra
 						txtDescricao.getText(),			//decricao
 						txtDonoDaObra.getText(),//dono_obra
 						txtContacto.getText(), //contacto_dono_obra
 						comboBoxTipoObra.getSelectedIndex(),//tipo_obra
 						txtDataInicio.getText(),//data_inicio
-						" ",	//data_fim_no momento de criacao esta data é nula - HN
+						null,	//data_fim_no momento de criacao esta data é nula - HN
 						txtDataFim.getText(), //data_prazo
 						Double.parseDouble(txtValorProjecto.getText())); //valorProjectado
 				
