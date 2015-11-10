@@ -15,9 +15,9 @@ public class UserController {
 				return false;
 			else {	
 		User user;
-		user = new User(id,nome, apelido, email, password,
-				username, categoria,telefone);
-		gravar(user);
+//		user = new User(id,nome, apelido, email, password,
+//				username, categoria,telefone);
+//		gravar(user);
 		return true;
 			}
 	}
