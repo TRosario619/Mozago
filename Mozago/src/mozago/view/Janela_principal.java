@@ -153,7 +153,7 @@ public class Janela_principal extends JFrame implements ActionListener{
 		JLabel labelBackground = new JLabel("");
 		labelBackground.setForeground(new Color(255, 140, 0));
 		labelBackground.setBackground(Color.BLACK);
-		labelBackground.setIcon(new ImageIcon(Janela_principal.class.getResource("/img/Janela_main/BG-_2_just_in_case.png")));
+		labelBackground.setIcon(new ImageIcon(Janela_principal.class.getResource("/img/Janela_main/logo_mozago background5.png")));
 		labelBackground.setBounds(-16, 0, 734, 594);
 		panelPrincipal.add(labelBackground);
 		

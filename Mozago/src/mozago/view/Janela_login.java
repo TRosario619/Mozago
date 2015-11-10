@@ -105,15 +105,15 @@ public class Janela_login extends JFrame implements ActionListener{
 		
 		textField_username = new JTextField();
 		textField_username.setForeground(Color.GRAY);
-		textField_username.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
-		textField_username.setBounds(151, 157, 242, 30);
+		textField_username.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
+		textField_username.setBounds(167, 157, 226, 33);
 		contentPane.add(textField_username);
 		textField_username.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setForeground(Color.GRAY);
-		passwordField.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
-		passwordField.setBounds(151, 211, 242, 29);
+		passwordField.setFont(new Font("Futura Lt BT", Font.BOLD, 24));
+		passwordField.setBounds(167, 211, 226, 29);
 		contentPane.add(passwordField);
 		
 		btn_login.setForeground(new Color(255, 153, 0));
