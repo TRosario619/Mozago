@@ -187,10 +187,10 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 			}
 		
 		String[] anos=new String[32];
-		dias[0]="Ano";
+		anos[0]="Ano";
 		for(int i = 1; i<32;i++){
 			
-			anos[i]=i+2015+"";
+			anos[i]=i+2014+"";
 		}
 		
 		String[] meses = {"mês","janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro",
