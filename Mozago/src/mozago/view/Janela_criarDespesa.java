@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.EmptyBorder;
+import javax.swing.Action;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -14,28 +15,39 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.UIManager;
 
+import mozago.bdRelated.DespesaDAO;
 import mozago.controller.point;
+import mozago.model.Despesa;
+import mozago.model.Obra;
 
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.Locale;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Janela_criarDespesa extends JFrame {
+public class Janela_criarDespesa extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField txtDescricao;
 	private JTextField txtValorUnitario;
 	private JTextField txtQuantidade;
 	private JLabel lblResultado;
+	private Obra obra= new Obra();
+	private JButton btnGuardar = new JButton("Guardar");
+	private JButton btnLimpar = new JButton("Limpar");
+	private JComboBox comboBoxTipoDespesa = new JComboBox();
 
 	/**
 	 * Launch the application.
@@ -43,8 +55,8 @@ public class Janela_criarDespesa extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					Janela_criarDespesa frame = new Janela_criarDespesa();
+				try {	Obra obra2=new Obra();				
+					Janela_criarDespesa frame = new Janela_criarDespesa(obra2);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,7 +68,7 @@ public class Janela_criarDespesa extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Janela_criarDespesa() {
+	public Janela_criarDespesa(Obra obra) {
 		UIManager.put("OptionPane.yesButtonText", "Sim");
 		UIManager.put("OptionPane.cancelButtonText", "Cancelar");
 		UIManager.put("OptionPane.noButtonText", "Não");
@@ -102,11 +114,18 @@ public class Janela_criarDespesa extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblId = new JLabel("ID da Despesa");
-		lblId.setForeground(Color.GRAY);
-		lblId.setFont(new Font("Futura Lt BT", Font.BOLD, 22));
-		lblId.setBounds(128, 149, 257, 30);
-		contentPane.add(lblId);
+		JLabel lblId;
+		try {
+			lblId = new JLabel(DespesaDAO.generateId()+"");
+			lblId.setForeground(Color.GRAY);
+			lblId.setFont(new Font("Futura Lt BT", Font.BOLD, 22));
+			lblId.setBounds(128, 149, 257, 30);
+			contentPane.add(lblId);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		txtDescricao = new JTextField();
 		txtDescricao.setHorizontalAlignment(SwingConstants.LEFT);
@@ -117,13 +136,13 @@ public class Janela_criarDespesa extends JFrame {
 		contentPane.add(txtDescricao);
 		txtDescricao.setColumns(10);
 		
-		JComboBox comboBoxTipoDespesa = new JComboBox();
+		
 		comboBoxTipoDespesa.setForeground(Color.GRAY);
 		comboBoxTipoDespesa.setFont(new Font("Futura Lt BT", Font.BOLD, 22));
 		comboBoxTipoDespesa.setBounds(128, 190, 257, 30);
 		contentPane.add(comboBoxTipoDespesa);
 		
-		JLabel lblIdDaObra = new JLabel("ID Da Obra");
+		JLabel lblIdDaObra = new JLabel(obra.getId_obra()+"");
 		lblIdDaObra.setForeground(Color.GRAY);
 		lblIdDaObra.setFont(new Font("Futura Lt BT", Font.BOLD, 22));
 		lblIdDaObra.setBounds(533, 149, 199, 30);
@@ -212,13 +231,13 @@ public class Janela_criarDespesa extends JFrame {
 		lblResultado.setBounds(487, 337, 171, 39);
 		contentPane.add(lblResultado);
 		
-		JButton btnLimpar = new JButton("Limpar");
+		
 		btnLimpar.setBackground(Color.GRAY);
 		btnLimpar.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 20));
 		btnLimpar.setBounds(363, 424, 138, 39);
 		contentPane.add(btnLimpar);
 		
-		JButton btnGuardar = new JButton("Guardar");
+		
 		btnGuardar.setIcon(new ImageIcon(Janela_criarDespesa.class.getResource("/img/Janela_criarDespeza/guardar.png")));
 		btnGuardar.setBounds(533, 424, 138, 39);
 		contentPane.add(btnGuardar);
@@ -228,8 +247,42 @@ public class Janela_criarDespesa extends JFrame {
 		lblBg.setBounds(-16, 0, 773, 474);
 		contentPane.add(lblBg);
 		setLocation(point.findScreenCenter(this));
+		
+		btnGuardar.addActionListener(this);
+		btnLimpar.addActionListener(this);
 	}
 	public JLabel getLblResultado() {
 		return lblResultado;
+	}
+
+	private boolean verificarVazios(){
+		if (txtDescricao.getText().toString().isEmpty() ||
+				txtQuantidade.getText().toString().isEmpty()||
+				comboBoxTipoDespesa.getSelectedIndex()==0 ||
+				txtValorUnitario.getText().toString().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "preencha todos os campos");
+			return false;}
+			else
+				return true;
+		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+	if(e.getSource()==btnLimpar){
+		txtDescricao.setText("");
+		txtQuantidade.setText("");
+		txtValorUnitario.setText("");
+		comboBoxTipoDespesa.setSelectedIndex(0);
+		
+	}
+	
+//	if(e.getSource()==btnGuardar){
+//		if(verificarVazios()){
+//			
+//			Despesa despesa = new Despesa(DespesaDAO.generateId(), title, title, title);
+//		}
+//	}
+//	work in progress - HN
+	
 	}
 }

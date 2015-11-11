@@ -19,40 +19,32 @@ public class DespesaDAO {
 	}
 	
 	
-public static void inserir(Despesa despesa,Material material) throws SQLException{
+public static void inserir(Obra obra, User admin, User gestor, User director) throws SQLException{
 		
-		//criar material
+		try{
+			con = (Connection) BdConecta.getConnection();
+				}
+				catch (SQLException e){
+					System.out.println(e.getMessage());
+				}
 		
-	java.sql.PreparedStatement stmt1=DespesaDAO.con.prepareStatement("insert into material (id_material, material_id,"
-			+ "quantia, preco_total, data_despesa)"
-			+ " values(?,?,?)");
-	
-	stmt1.setString(1, despesa.getId());
-	stmt1.setString(2, material.getiD());
-	stmt1.setString(3, despesa.getQuantia());
-
-
-	
-	stmt1.execute();
-	try {
-		stmt1.close();
-		con.close();
-	} catch (Exception e) {
-		e.getMessage();
-	}
 		
-		//Criar despesa
+		//Criar Obra
 		java.sql.PreparedStatement stmt=DespesaDAO.con.prepareStatement("insert into despesa (id_despesa, material_id,"
-				+ "quantia, preco_total, data_despesa)"
-				+ " values(?,?,?,?,?)");
+				+ "quantia, preco_total, data_pedido_despesa, aprovado,data_despesa_aprovada)"
+				+ " values(?,?,?,?,?,?)");
 		
-		stmt.setString(1, despesa.getId());
-		stmt.setString(2, material.getiD());
-		stmt.setString(3, despesa.getQuantia());
-		stmt.setString(4, despesa.getPreco_total());
-		stmt.setString(5,despesa.getData());
-	
+		stmt.setInt(1, DespesaDAO.generateId());
+		stmt.setInt(2, admin.getIdUser());
+		stmt.setInt(3, director.getIdUser());
+		stmt.setInt(4, gestor.getIdUser());
+		stmt.setInt(5, obra.getId_obra());
 		
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		stmt.setDate(6, (java.sql.Date) date);
+		
+		
+				
 		stmt.execute();
 		try {
 			stmt.close();
@@ -61,7 +53,58 @@ public static void inserir(Despesa despesa,Material material) throws SQLExceptio
 			e.getMessage();
 		}
 		
+		/*CREATE TABLE `despesa` (
+ 1 `id_despesa` int(11) NOT NULL,
+ 2`material_id` int(11) DEFAULT NULL,
+ 3 `quantia` int(11) DEFAULT NULL,
+ 4 `preco_total` bigint(20) DEFAULT NULL,
+ 5 `data_pedido_despesa` date DEFAULT NULL,
+ 6 `aprovado` bit(1) DEFAULT NULL,
+ 7 `data_despesa_aprovada` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_despesa`),
+  KEY `fk_material_idx` (`material_id`),
+  CONSTRAINT `fk_material` FOREIGN KEY (`material_id`) REFERENCES `material` (`idmaterial`)*/
 		
 	}
 
+public static int generateId() throws SQLException{
+	
+	//Calcula proximo IdDespesa
+	try{
+		con = (Connection) BdConecta.getConnection();
+			}
+			catch (SQLException e){
+				System.out.println(e.getMessage());
+			}
+			int last_id_despesa = 0;
+			java.sql.PreparedStatement stmt121 = null;
+			
+			
+
+		
+			
+			
+			ResultSet rs = stmt121.executeQuery();
+				
+			
+			while(rs.next()){
+				String string = rs.getString("max(id_despesa)");
+				if(string==null){
+					return 1;
+				}
+				last_id_despesa=Integer.parseInt(rs.getString("max(id_despesa)"));
+					
+								}
+							
+			System.out.println("Last id Despesa: "+last_id_despesa);
+			if(last_id_despesa==0){
+				return 1;
+			}
+			else{
+				return (last_id_despesa+1);
+			}
+	
 }
+
+}
+
