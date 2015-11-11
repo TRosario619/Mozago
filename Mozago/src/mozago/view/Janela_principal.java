@@ -202,7 +202,12 @@ public class Janela_principal extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource()==btnUsuarios){
-			new Janela_users(user).setVisible(true);
+			try {
+				new Janela_users(user).setVisible(true);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		if(e.getSource()==btnVisualizar){

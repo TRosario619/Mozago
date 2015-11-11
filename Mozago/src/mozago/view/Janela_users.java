@@ -23,6 +23,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.Vector;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -32,6 +33,7 @@ import javax.swing.JButton;
 import mozago.bdRelated.UserDAO;
 import mozago.controller.point;
 import mozago.model.User;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -50,7 +52,7 @@ public class Janela_users extends JFrame implements ActionListener{
 	private JButton btnApagar;
 	private String[] categorias = {"Selecione uma Categoria","Administrador","Director","Gestor"};
 	private JComboBox comboBox_categoria = new JComboBox(categorias);
-	
+	private Vector<User> listaUser;
 	/**
 	 * Launch the application.
 	 */
@@ -58,8 +60,9 @@ public class Janela_users extends JFrame implements ActionListener{
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public Janela_users(User user) {
+	public Janela_users(User user) throws SQLException {
 		 UIManager.put("OptionPane.yesButtonText", "Sim");  
          UIManager.put("OptionPane.cancelButtonText", "Cancelar");  
          UIManager.put("OptionPane.noButtonText", "Não");  
@@ -100,6 +103,7 @@ public class Janela_users extends JFrame implements ActionListener{
 		} catch (Exception e) {
 		    // If Nimbus is not available, you can set the GUI to another look and feel.
 		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 807, 699);
 		contentPane = new JPanel();
@@ -163,7 +167,8 @@ public class Janela_users extends JFrame implements ActionListener{
 		JScrollPane scrollPane = new JScrollPane();
 		tableP=new JTable();
 		scrollPane.setViewportView(tableP);
-		inicializarTabela();
+		listaUser=UserDAO.retornaUsuarios();
+		inicializarTabela(listaUser);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -194,11 +199,11 @@ public class Janela_users extends JFrame implements ActionListener{
 		btnCriar.addActionListener(this);
 		btnEditar.addActionListener(this);
 	}
-private void inicializarTabela(){
+private void inicializarTabela(Vector<User> lista){
 		
 		tableP.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	
-		DefaultTableModel modelo_tabela = new DefaultTableModel(0,6)
+
+		DefaultTableModel modelo_tabela = new DefaultTableModel()
 		{
 
 		    @Override
@@ -207,24 +212,38 @@ private void inicializarTabela(){
 		       return false;
 		    }
 		};
-		tableP.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Nome", "Apelido", "email", "Telefone", "Username", "Password", "Categoria"
-			}
-		));
+		modelo_tabela.addColumn("Nome");
+		modelo_tabela.addColumn("Apelido");
+		modelo_tabela.addColumn("Email");
+		modelo_tabela.addColumn("Telefone");
+		modelo_tabela.addColumn("Username");
+		modelo_tabela.addColumn("Password");
+		modelo_tabela.addColumn("Categoria");
+		tableP.setModel(modelo_tabela);
+//		tableP.setModel(new DefaultTableModel(
+//			
+//			new Object[][] {
+//					
+//					
+//				{lista.get(1).getNome(), null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null},
+//			},
+//			new String[] {
+//				"Nome", "Apelido", "email", "Telefone", "Username", "Password", "Categoria"
+//			}
+//		));
+		for (User user : lista) {
+			modelo_tabela.addRow(new Object[]{user.getNome(), user.getApelido(),user.getEmail(),user.getTelefone(),user.getUsername(),user.getPassword(),user.getCategoria()});
+		};
 		tableP.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		
 		
@@ -249,6 +268,7 @@ private boolean verificarVazios(){
 		return true;
 	}
 }
+
 @Override
 public void actionPerformed(ActionEvent e) {
 	// TODO Auto-generated method stub
@@ -257,12 +277,17 @@ public void actionPerformed(ActionEvent e) {
 			User user=new User(UserDAO.generateId(),txtNome.getText(),txtApelido.getText(),
 					txtEmail.getText(),txtPassword.getText(),txtUsername.getText(),
 					comboBox_categoria.getSelectedIndex(),Long.parseLong(txtTelefone.getText()));
+			
+			
 			try {
 				UserDAO.adicionarUser(user);
+				dispose();
+				new Janela_users(user).setVisible(true);;
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
 			
 			}
 		
