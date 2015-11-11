@@ -24,6 +24,7 @@ import java.util.Locale;
 import javax.swing.JButton;
 
 import mozago.controller.point;
+import mozago.model.User;
 
 public class Janela_visualizarDetalheObra extends JFrame {
 
@@ -31,6 +32,7 @@ public class Janela_visualizarDetalheObra extends JFrame {
 	private JTextField txtDescObra;
 	private JTextField txtContacto;
 	private double custo=0, investimento=0, lucro=0,valorEmFalta=0, valorProjecto=0;
+	private User user;
 	/**
 	 * Launch the application.
 	 */
@@ -68,7 +70,7 @@ public class Janela_visualizarDetalheObra extends JFrame {
               
                 if (i == JOptionPane.YES_OPTION) {  
                 	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                	  new Janela_visualizarObra().setVisible(true); 
+                	  new Janela_visualizarObra(user).setVisible(true); 
                 } else {  
                 	glass.setVisible(false); 
                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

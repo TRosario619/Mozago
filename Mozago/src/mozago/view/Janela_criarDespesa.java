@@ -87,7 +87,7 @@ public class Janela_criarDespesa extends JFrame implements ActionListener{
 
 				if (i == JOptionPane.YES_OPTION) {
 					setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-              	  new Janela_ViewDisp().setVisible(true); 
+              	  //new Janela_ViewDisp().setVisible(true); 
 				} else {
 					glass.setVisible(false);
 					setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

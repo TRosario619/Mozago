@@ -212,6 +212,7 @@ public class Janela_principal extends JFrame implements ActionListener{
 		
 		if(e.getSource()==btnVisualizar){
 			//janela nao criada - HN
+			new Janela_visualizarObra(user).setVisible(true);
 		}
 	}
 

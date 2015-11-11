@@ -17,40 +17,54 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 
 import mozago.controller.point;
+import mozago.model.User;
 
 import java.awt.Font;
 
 import javax.swing.JButton;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Locale;
 
-public class Janela_visualizarObra extends JFrame {
+public class Janela_visualizarObra extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTable tableP;
+	private JButton btnVisualizarDespesas;
+	private JButton btnActualizarObrar;
+	private JButton btnInvestimento;
+	private User user;
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Janela_visualizarObra frame = new Janela_visualizarObra();
+					Janela_visualizarObra frame = new Janela_visualizarObra(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public Janela_visualizarObra() {
+	public Janela_visualizarObra(User user) {
 
 		 UIManager.put("OptionPane.yesButtonText", "Sim");  
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");  
@@ -105,7 +119,7 @@ public class Janela_visualizarObra extends JFrame {
 		scrollPane.setViewportView(tableP);
 		inicializarTabela();
 		
-		JButton btnVisualizarDespesas = new JButton("Visualizar Despesas");
+		btnVisualizarDespesas = new JButton("Visualizar Despesas");
 		btnVisualizarDespesas.setToolTipText("Visualizar despesas feitas nas obras");
 		btnVisualizarDespesas.setBackground(new Color(0, 0, 0));
 		btnVisualizarDespesas.setForeground(new Color(255, 140, 0));
@@ -113,14 +127,14 @@ public class Janela_visualizarObra extends JFrame {
 		btnVisualizarDespesas.setBounds(499, 612, 215, 56);
 		contentPane.add(btnVisualizarDespesas);
 		
-		JButton btnActualizarObrar = new JButton("Actualizar obrar");
+		btnActualizarObrar = new JButton("Actualizar obrar");
 		btnActualizarObrar.setToolTipText("Modificar detalhes da obra");
 		btnActualizarObrar.setBackground(Color.GRAY);
 		btnActualizarObrar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 20));
 		btnActualizarObrar.setBounds(134, 612, 192, 56);
 		contentPane.add(btnActualizarObrar);
 		
-		JButton btnInvestimento = new JButton("Investimento");
+		btnInvestimento = new JButton("Investimento");
 		btnInvestimento.setToolTipText("Adicionar ao investimento Dado");
 		btnInvestimento.setBackground(Color.GRAY);
 		btnInvestimento.setFont(new Font("Segoe UI Semilight", Font.BOLD, 20));
@@ -166,6 +180,20 @@ public class Janela_visualizarObra extends JFrame {
 		lblbg.setBounds(0, 0, 797, 679);
 		contentPane.add(lblbg);
 		setLocation(point.findScreenCenter(this));
+		
+		btnActualizarObrar.addActionListener(this);
+		btnInvestimento.addActionListener(this);
+		btnVisualizarDespesas.addActionListener(this);
+		
+		
+		if (user.getCategoria()==2){
+			btnActualizarObrar.setVisible(false);
+			btnInvestimento.setVisible(false);
+		}
+		else if (user.getCategoria()==3){
+			btnActualizarObrar.setVisible(false);
+			btnInvestimento.setVisible(false);
+		}
 }
 	private void inicializarTabela(){
 		
@@ -212,5 +240,12 @@ public class Janela_visualizarObra extends JFrame {
 		this.setVisible(true);
 		setLocation(point.findScreenCenter(this));
 }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==btnVisualizarDespesas){
+			new Janela_ViewDisp(user).setVisible(true);
+		}
+	}
 	}
 

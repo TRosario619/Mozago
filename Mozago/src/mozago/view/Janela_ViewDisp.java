@@ -22,6 +22,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 
 import mozago.controller.point;
+import mozago.model.User;
 
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -34,6 +35,7 @@ public class Janela_ViewDisp extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tableP;
+	private static User user;
 	/**
 	 * Launch the application.
 	 */
@@ -41,7 +43,7 @@ public class Janela_ViewDisp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Janela_ViewDisp frame = new Janela_ViewDisp();
+					Janela_ViewDisp frame = new Janela_ViewDisp(user);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,14 +55,14 @@ public class Janela_ViewDisp extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Janela_ViewDisp() {
+	public Janela_ViewDisp(User user) {
 		
 		 UIManager.put("OptionPane.yesButtonText", "Sim");  
          UIManager.put("OptionPane.cancelButtonText", "Cancelar");  
          UIManager.put("OptionPane.noButtonText", "Não");  
          UIManager.put("OptionPane.okButtonText", "OK");  
 	    Locale.setDefault(new Locale("pt","PT"));  
-	    
+	    this.user=user;
 		addWindowListener(new WindowAdapter() {
 			@Override
 			  public void windowClosing(WindowEvent e) {  
@@ -72,7 +74,7 @@ public class Janela_ViewDisp extends JFrame {
               
                 if (i == JOptionPane.YES_OPTION) {  
                 	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                	  new Janela_visualizarObra().setVisible(true); 
+                	  //new Janela_visualizarObra(user).setVisible(true); 
                 } else {  
                 	glass.setVisible(false); 
                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
