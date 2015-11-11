@@ -10,6 +10,9 @@ import java.sql.SQLException;
 
 
 
+
+import javax.swing.JOptionPane;
+
 import mozago.model.*;
 
 import com.mysql.jdbc.Connection;
@@ -52,6 +55,7 @@ public class ObraDAO {
 		
 		stmt.execute();
 		System.out.println("obra adicionada");
+		JOptionPane.showMessageDialog(null, "obra gravada com successo");
 		try {
 			stmt.close();
 			con.close();

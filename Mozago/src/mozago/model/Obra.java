@@ -99,6 +99,15 @@ public class Obra {
 	public void setValorProjectado(Double valorProjectado) {
 		this.valorProjectado = valorProjectado;
 	}
+	@Override
+	public String toString() {
+		return "Obra [decricao=" + decricao + ", dono_obra=" + dono_obra
+				+ ", contacto_dono_obra=" + contacto_dono_obra + ", duracao="
+				+ duracao + ", id_obra=" + id_obra + ", data_inicio="
+				+ data_inicio + ", data_fim=" + data_fim + ", data_prazo="
+				+ data_prazo + ", tipo_obra=" + tipo_obra
+				+ ", valorProjectado=" + valorProjectado + "]";
+	}
 
 
 	

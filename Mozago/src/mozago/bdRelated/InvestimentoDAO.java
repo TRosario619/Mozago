@@ -24,22 +24,27 @@ public class InvestimentoDAO {
 	
 	
 public static void inserir(Investimento investimento, Obra obra) throws SQLException{
-	
+	System.out.println("chegou no ins invest");
+	System.out.println(investimento.toString()+ "" + obra.toString());
 	//Criar investimento
-		
+	
+	
+	try{
+		con = (Connection) BdConecta.getConnection();
+			}
+			catch (SQLException e){
+				System.out.println(e.getMessage());
+			}
 	
 	    java.sql.PreparedStatement stmt=InvestimentoDAO.con.prepareStatement("insert into investimento (idinvestimento,"
-				+ " valor_invest, data_invest, descricao_invest)"
+				+ " valor_invest, data_invest, descricao_invest,obra_id)"
 				+ " values(?,?,?,?,?)");
 		
 		stmt.setInt(1,investimento.getIdInvestimento());
 		stmt.setDouble(2, investimento.getValor());
 		
-		java.util.Date data = investimento.getData();
-		String dataString;
-		dataString = investimento.getData().getDate()+""+investimento.getData().getMonth()+""+investimento.getData().getYear();
-		long dataLong = Long.parseLong(dataString);
-		java.sql.Date date = new java.sql.Date(dataLong);
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		
 		stmt.setDate(3, (java.sql.Date) date);
 		
 		stmt.setString(4, investimento.getDescricao());
@@ -47,6 +52,7 @@ public static void inserir(Investimento investimento, Obra obra) throws SQLExcep
 			
 		try {
 			stmt.execute();
+			System.out.println("invest criado");
 			stmt.close();
 			con.close();
 			JOptionPane.showMessageDialog(null, "gravado com successo");
@@ -76,7 +82,14 @@ public static int generateId() throws SQLException{
 			
 			ResultSet rs = stmt121.executeQuery();
 				while(rs.next()){
+					String string = rs.getString("max(idinvestimento)");
+					if(string==null){
+						return 1;
+					}
+		
 				last_id_obra=Integer.parseInt(rs.getString("max(idinvestimento)"));
+				//stmt121.close();
+				//con.close();
 				}
 			
 			

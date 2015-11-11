@@ -68,7 +68,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		User user = new User();
 							Janela_CriarObra frame;
 							try {
@@ -80,7 +80,7 @@ public class Janela_CriarObra extends JFrame implements ActionListener {
 							}
 					
 				
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -325,6 +325,7 @@ public void criarAlocacao(Obra obra)
 		director= UserDAO.VerificarUser(comboBoxDirector.getSelectedItem().toString());
 		User gestor = new User();
 		gestor= UserDAO.VerificarUser(comboBoxGestor.getSelectedItem().toString());
+		System.out.println(obra.toString());
 	AlocacaoDAO.inserir(obra, admin, gestor, director);
 	} catch (SQLException e1) {
 		// TODO Auto-generated catch block
@@ -352,7 +353,8 @@ public void criarAlocacao(Obra obra)
 					obra=new Obra(ObraDAO.generateId(), txtDescricao.getText(), txtDonoDaObra.getText(), txtContacto.getText(), comboBoxTipoObra.getSelectedIndex(), data_inicio, data_fim, data_prazo, Double.parseDouble(txtValor.getText()));
 					
 					ObraDAO.inserir(obra);
-				
+					
+					criarAlocacao(obra);
 				} catch (NumberFormatException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -361,10 +363,10 @@ public void criarAlocacao(Obra obra)
 					e2.printStackTrace();
 				} //valorProjectado
 		
-				criarAlocacao(obra);
+				
 				
 				 new Janela_CriarObraInvs(obra, user).setVisible(true);
-							
+				dispose();			
 				
 			}
 			

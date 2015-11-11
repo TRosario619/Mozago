@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.Calendar;
+
+import javax.swing.JOptionPane;
+
 import mozago.model.Obra;
 import mozago.model.User;
 
@@ -51,10 +54,12 @@ public class AlocacaoDAO {
 		
 		
 				
-		stmt.execute();
+		
 		try {
+			stmt.execute();
 			stmt.close();
 			con.close();
+			JOptionPane.showMessageDialog(null, "alocacao gravada com successo");
 		} catch (Exception e) {
 			e.getMessage();
 		}

@@ -3,6 +3,11 @@ package mozago.model;
 import java.util.Date;
 
 public class Investimento {
+	@Override
+	public String toString() {
+		return "Investimento [idInvestimento=" + idInvestimento + ", valor="
+				+ valor + ", descricao=" + descricao + "]";
+	}
 	private int idInvestimento;
 	private double valor;
 	private static Date data = new Date();

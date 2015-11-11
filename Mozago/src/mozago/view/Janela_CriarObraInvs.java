@@ -44,18 +44,20 @@ public class Janela_CriarObraInvs extends JFrame implements ActionListener, Wind
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Janela_CriarObraInvs frame = new Janela_CriarObraInvs();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+/*public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Obra obra1 = new Obra();
+					User user1 = new User();
+					Janela_CriarObraInvs frame = new Janela_CriarObraInvs(obra1,user1);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}*/
 
 	/**
 	 * Create the frame.
@@ -69,6 +71,24 @@ public class Janela_CriarObraInvs extends JFrame implements ActionListener, Wind
         UIManager.put("OptionPane.noButtonText", "Não");  
         UIManager.put("OptionPane.okButtonText", "OK");  
 	    Locale.setDefault(new Locale("pt","PT"));  
+	   
+	    addWindowListener(new WindowAdapter() {
+			@Override
+			  public void windowClosing(WindowEvent e) {  
+
+			    BlockingGlassPane glass = new BlockingGlassPane();  
+			    setGlassPane(glass);  
+			    glass.setVisible(true);  
+                int i = JOptionPane.showConfirmDialog(Janela_CriarObraInvs.this ,"Tem certeza que deseja cancelar a criacao do Investimento inicial?", "Cancelar",JOptionPane.YES_NO_OPTION); 
+              
+                if (i == JOptionPane.YES_OPTION) {  
+                	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                //new Janela_principal(user).setVisible(true); 
+                } else {  
+                	glass.setVisible(false); 
+                   setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                }     } 
+		}); 	
 	    
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -93,6 +113,7 @@ public class Janela_CriarObraInvs extends JFrame implements ActionListener, Wind
 		panel.setLayout(null);
 		
 		txtValorInicial = new JTextField();
+		txtValorInicial.setToolTipText("Montante do Investimento inicial");
 		txtValorInicial.setForeground(Color.GRAY);
 		txtValorInicial.setFont(new Font("Futura Lt BT", Font.BOLD, 26));
 		txtValorInicial.setBounds(49, 150, 176, 37);
@@ -105,9 +126,9 @@ public class Janela_CriarObraInvs extends JFrame implements ActionListener, Wind
 		panel.add(lblMzn);
 		
 		txtDescricao = new JTextField();
+		txtDescricao.setToolTipText("Descricao do Investimento Inicial");
 		txtDescricao.setForeground(Color.GRAY);
 		txtDescricao.setFont(new Font("Futura Lt BT", Font.PLAIN, 17));
-		txtDescricao.setText("Descricao");
 		txtDescricao.setBounds(382, 150, 258, 37);
 		panel.add(txtDescricao);
 		txtDescricao.setColumns(10);
@@ -138,8 +159,9 @@ public class Janela_CriarObraInvs extends JFrame implements ActionListener, Wind
 			JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos");
 			return false;
 		}
-		else 
+		else {
 			return true;
+		}
 	}
 
 	@Override
@@ -161,6 +183,8 @@ public class Janela_CriarObraInvs extends JFrame implements ActionListener, Wind
 					e1.printStackTrace();
 				}
 			}
+			JOptionPane.showMessageDialog(null, "Vontando para o menu inicial...");
+			dispose();
 		}//endBtnGuardar
 		
 		if (e.getSource()==btnLimpar){
@@ -171,20 +195,7 @@ public class Janela_CriarObraInvs extends JFrame implements ActionListener, Wind
 		
 	}
 	
-	public void windowClosing(WindowEvent e) throws SQLException {  
-
-	    BlockingGlassPane glass = new BlockingGlassPane();  
-	    setGlassPane(glass);  
-	    glass.setVisible(true);  
-     int i = JOptionPane.showConfirmDialog(Janela_CriarObraInvs.this ,"Tem certeza que deseja sair?", "Saída",JOptionPane.YES_NO_OPTION); 
-   
-     if (i == JOptionPane.YES_OPTION) {  
-     	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-     	  new Janela_CriarObra(user).setVisible(true); 
-     } else {  
-     	glass.setVisible(false); 
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-     }     }
+	
 
 	@Override
 	public void windowStateChanged(WindowEvent arg0) {
