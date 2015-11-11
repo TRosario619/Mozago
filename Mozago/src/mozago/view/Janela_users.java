@@ -36,6 +36,8 @@ import mozago.model.User;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Janela_users extends JFrame implements ActionListener{
 
@@ -166,6 +168,18 @@ public class Janela_users extends JFrame implements ActionListener{
 		
 		JScrollPane scrollPane = new JScrollPane();
 		tableP=new JTable();
+		tableP.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txtNome.setText(listaUser.get(tableP.getSelectedRow()).getNome());
+				txtApelido.setText(listaUser.get(tableP.getSelectedRow()).getApelido());
+				txtEmail.setText(listaUser.get(tableP.getSelectedRow()).getEmail());
+				txtTelefone.setText(String.valueOf(listaUser.get(tableP.getSelectedRow()).getTelefone()));
+				txtUsername.setText(listaUser.get(tableP.getSelectedRow()).getUsername());
+				txtPassword.setText(listaUser.get(tableP.getSelectedRow()).getPassword());
+				comboBox_categoria.setSelectedIndex(listaUser.get(tableP.getSelectedRow()).getCategoria());
+			}
+		});
 		scrollPane.setViewportView(tableP);
 		listaUser=UserDAO.retornaUsuarios();
 		inicializarTabela(listaUser);
